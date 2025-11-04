@@ -1,10 +1,26 @@
-/* --- Общие стили (v5.0) --- */
+/* --- (v6.0) НОВАЯ ЦВЕТОВАЯ СХЕМА "KRELLO" --- */
+:root {
+    --primary-color: #16A34A; /* Основной Зеленый */
+    --primary-color-dark: #14532D; /* Темно-зеленый (для футера) */
+    --primary-color-light: #DCFCE7; /* Светло-зеленый (для hover) */
+
+    --text-dark: #172B4D; /* Темный текст (как в Trello) */
+    --text-light-gray: #5E6C84; /* Серый текст (как в Trello) */
+    
+    --bg-gray-light: #F3F3F5; /* Наш светло-серый фон */
+    --bg-gray-medium: #F4F5F7; /* Наш средне-серый фон */
+    --bg-white: #FFFFFF;
+    
+    --border-color: #DFE1E6;
+}
+
+/* --- Общие стили (v6.0) --- */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    color: #172B4D; 
-    background: #FFFFFF;
+    color: var(--text-dark); 
+    background: var(--bg-white);
     font-size: 15px;
     line-height: 1.5;
 }
@@ -36,13 +52,13 @@ h2 {
 }
 a {
     text-decoration: none;
-    color: #0052CC; 
+    color: var(--primary-color); 
 }
 img {
     max-width: 100%;
 }
 
-/* --- Стили Кнопок и Форм (v5.0) --- */
+/* --- Стили Кнопок и Форм (v6.0 - Зеленый) --- */
 .btn {
     padding: 10px 16px; 
     border: none;
@@ -55,19 +71,19 @@ img {
     transition: background-color 0.2s ease;
 }
 .btn-primary {
-    background-color: #0052CC;
+    background-color: var(--primary-color);
     color: white;
 }
 .btn-primary:hover {
-    background-color: #0065FF;
+    background-color: var(--primary-color-dark);
 }
 .btn-secondary {
     background-color: transparent;
-    color: #0052CC;
-    border: 1px solid #DFE1E6; 
+    color: var(--primary-color);
+    border: 1px solid var(--border-color); 
 }
 .btn-secondary:hover {
-    background-color: #DEEBFF; 
+    background-color: var(--primary-color-light); 
 }
 .cta-form {
     display: flex;
@@ -77,14 +93,14 @@ img {
 .cta-form input[type="email"] {
     flex-grow: 1;
     padding: 10px 12px; 
-    border: 1px solid #DFE1E6;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     font-size: 0.95rem;
 }
 
-/* --- 1. Хедер (v5.0) --- */
+/* --- 1. Хедер (v6.0 - Зеленый) --- */
 .main-header {
-    background: #fff;
+    background: var(--bg-white);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -103,7 +119,7 @@ img {
     gap: 20px;
 }
 .main-nav a {
-    color: #172B4D;
+    color: var(--text-dark);
     font-weight: 500;
     padding: 15px 0;
     display: block;
@@ -111,7 +127,7 @@ img {
     transition: border-color 0.2s ease-in-out;
 }
 .main-nav a:hover {
-    border-color: #0052CC; /* Синяя линия при наведении */
+    border-color: var(--primary-color); /* Зеленая линия при наведении */
 }
 .auth-buttons {
     display: flex;
@@ -119,9 +135,10 @@ img {
 }
 .logo h2 {
     margin: 0;
+    color: var(--primary-color); /* Логотип тоже зеленый */
 }
 
-/* --- 1.1 ХЕДЕР - ДРОПДАУНЫ (v5.0) --- */
+/* --- 1.1 ХЕДЕР - ДРОПДАУНЫ (v6.0 - Зеленый) --- */
 .nav-item {
     position: relative; 
 }
@@ -131,10 +148,10 @@ img {
     left: 50%;
     transform: translateX(-50%);
     top: 100%; 
-    background: #fff;
+    background: var(--bg-white);
     border-radius: 8px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    border: 1px solid #DFE1E6;
+    border: 1px solid var(--border-color);
     margin-top: 5px; 
     width: 800px; 
 }
@@ -148,12 +165,12 @@ img {
 .dropdown-main {
     flex: 2;
     padding-right: 20px;
-    border-right: 1px solid #DFE1E6;
+    border-right: 1px solid var(--border-color);
 }
 .dropdown-sidebar {
     flex: 1;
     padding-left: 20px;
-    background: #F4F5F7; 
+    background: var(--bg-gray-medium); 
     margin: -20px; 
     padding: 20px;
     border-top-right-radius: 8px;
@@ -167,10 +184,6 @@ img {
     line-height: 1.4;
     margin-bottom: 15px;
 }
-.dropdown-sidebar .btn {
-    width: 100%;
-    text-align: center;
-}
 .grid-col-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -183,17 +196,17 @@ img {
     transition: background-color 0.2s ease;
 }
 .grid-col-3 a:hover {
-    background: #DEEBFF;
+    background: var(--primary-color-light);
     border-radius: 3px;
 }
 .grid-col-3 a p {
     font-size: 0.8rem;
-    color: #5E6C84;
+    color: var(--text-light-gray);
     margin: 5px 0 0 0;
 }
 .grid-col-3 i {
     margin-right: 8px;
-    color: #0052CC; 
+    color: var(--primary-color); /* Иконки зеленые */
     width: 15px; 
     text-align: center;
 }
@@ -201,21 +214,20 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #F4F5F7;
+    background: var(--bg-gray-medium);
     padding: 15px;
     border-radius: 5px;
     margin-top: 15px;
 }
 .free-plan-promo i {
     margin-right: 8px;
-    color: #36B37E; 
+    color: var(--primary-color);
 }
 
-/* --- 2. Главный экран (Hero) (v5.0 - Новый цвет) --- */
+/* --- 2. Главный экран (Hero) (v6.0) --- */
 .hero {
     padding: 40px 0; 
-    /* НОВЫЙ ЦВЕТ ФОНА */
-    background-color: #F3F3F5; 
+    background-color: var(--bg-gray-light); 
 }
 .hero-container {
     display: flex;
@@ -233,11 +245,10 @@ img {
     max-width: 400px; 
 }
 
-/* --- 3. Интерактивные функции (v5.0 - Новые цвета и Active) --- */
+/* --- 3. Интерактивные функции (v6.0) --- */
 .features-interactive {
     padding: 40px 0; 
-    /* НОВЫЙ ЦВЕТ ФОНА (Белый) */
-    background: #FFFFFF; 
+    background: var(--bg-white); 
 }
 .features-content {
     display: flex;
@@ -251,23 +262,19 @@ img {
     gap: 10px;
 }
 .feature-item {
-    /* НОВЫЙ ЦВЕТ ФОНА (Серый) */
-    background: #F4F5F7; 
+    background: var(--bg-gray-medium); 
     padding: 15px; 
     border-radius: 5px;
-    /* НОВОЕ: Убрали прозрачную рамку */
     border: 3px solid transparent; 
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-/* НОВОЕ: Убрали анимацию "приподнимания" */
 .feature-item:hover {
-    background-color: #e9eaec; /* Слегка темнее при наведении */
+    background-color: #e9eaec; 
 }
-/* НОВОЕ: Стиль "Активно" - синяя полоса слева */
 .feature-item.active {
-    background-color: #FFFFFF; /* Делаем белым при выборе */
-    border-left: 3px solid #0052CC; 
+    background-color: var(--bg-white); 
+    border-left: 3px solid var(--primary-color); /* Активная полоса - зеленая */
 }
 .feature-item h3 {
     display: flex;
@@ -275,17 +282,16 @@ img {
     gap: 10px;
 }
 .feature-item i {
-    color: #0052CC;
+    color: var(--primary-color);
 }
 .features-image {
     flex: 2;
-    background: #fff;
+    background: var(--bg-white);
     padding: 20px;
     border-radius: 5px;
     min-height: 300px; 
     position: relative;
-    /* НОВОЕ: Добавим рамку, чтобы контейнер картинки был виден */
-    border: 1px solid #DFE1E6; 
+    border: 1px solid var(--border-color); 
 }
 .feature-tab-image {
     display: none;
@@ -294,10 +300,10 @@ img {
     display: block;
 }
 
-/* --- 4. Интеграции (v5.0 - Убрана анимация) --- */
+/* --- 4. Интеграции (v6.0 - Зеленый) --- */
 .integrations {
     padding: 40px 0; 
-    background: #0052CC; 
+    background: var(--primary-color); /* Фон - основной зеленый */
     color: white;
 }
 .integrations h2, .integrations .section-subtitle {
@@ -307,15 +313,13 @@ img {
     display: flex;
     gap: 30px; 
     align-items: center;
-    background: #fff;
-    color: #172B4D;
+    background: var(--bg-white);
+    color: var(--text-dark);
     padding: 30px; 
     border-radius: 8px;
     margin-bottom: 20px; 
-    /* НОВОЕ: Убрали анимацию "приподнимания" */
     transition: box-shadow 0.2s ease-in-out;
 }
-/* НОВОЕ: Оставили только легкую тень при наведении */
 .integration-card:hover {
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
@@ -326,19 +330,19 @@ img {
     flex: 1;
 }
 
-/* --- 5. Отзывы (v5.0 - Стили для кнопок) --- */
+/* --- 5. Отзывы (v6.0 - Стили для точек) --- */
 .testimonials {
     padding: 40px 0; 
 }
 .testimonial-slider {
     position: relative;
     overflow: hidden; 
-    border: 1px solid #DFE1E6;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
 }
 .testimonial-slide {
     display: none; 
-    background: #fff;
+    background: var(--bg-white);
     width: 100%;
 }
 .testimonial-slide.active {
@@ -359,12 +363,12 @@ img {
     margin-bottom: 5px;
 }
 .author-title {
-    color: #5E6C84;
+    color: var(--text-light-gray);
     margin: 0 0 20px 0;
 }
 .testimonial-stat {
     flex: 1;
-    background: #0052CC;
+    background: var(--primary-color); /* Статистика - зеленая */
     color: white;
     padding: 30px; 
     display: flex;
@@ -380,53 +384,61 @@ img {
     font-size: 1.1rem; 
     margin: 10px 0;
 }
-/* НОВОЕ: Стили для кнопок карусели */
-.carousel-btn {
+/* НОВОЕ: Стили для точек карусели */
+.carousel-dots {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    border: 1px solid #DFE1E6;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+.dot {
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    background-color: var(--border-color);
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
 }
-.carousel-btn:hover {
-    background-color: #F4F5F7;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.dot:hover {
+    background-color: var(--text-light-gray);
 }
-.carousel-prev {
-    left: 15px;
-}
-.carousel-next {
-    right: 15px;
+.dot.active {
+    background-color: var(--primary-color); /* Активная точка - зеленая */
 }
 
-/* --- 6. Социальное доказательство (v5.0) --- */
+
+/* --- 6. Социальное доказательство (v6.0 - Иконки) --- */
 .social-proof {
     padding: 30px 0; 
     text-align: center;
-    background: #F4F5F7;
+    background: var(--bg-gray-medium);
 }
 .social-proof p {
     font-size: 1.0rem; 
-    color: #5E6C84;
+    color: var(--text-light-gray);
 }
 .logos {
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 20px; 
-    font-size: 1.3rem; 
-    color: #5E6C84; 
+    gap: 30px;
+    margin-top: 30px; 
+}
+/* НОВОЕ: Стили для иконок брендов */
+.logos .fab {
+    font-size: 2.5rem; /* Крупные иконки */
+    color: var(--text-light-gray);
+    transition: color 0.2s ease;
+}
+.logos .fab:hover {
+    color: var(--text-dark); /* Темнее при наведении */
 }
 
-/* --- 7. Финальный CTA (v5.0) --- */
+
+/* --- 7. Финальный CTA (v6.0) --- */
 .final-cta {
     padding: 40px 0; 
     text-align: center;
@@ -438,13 +450,13 @@ img {
 }
 .legal-text {
     font-size: 0.8rem;
-    color: #5E6C84;
+    color: var(--text-light-gray);
 }
 
-/* --- 8. Футер (v5.0) --- */
+/* --- 8. Футер (v6.0 - Зеленый) --- */
 .main-footer {
-    background: #091E42; 
-    color: #DEEBFF;
+    background: var(--primary-color-dark); /* Темно-зеленый */
+    color: #e7f7ed; /* Очень светлый зеленый */
     padding: 30px 0 20px 0; 
 }
 .footer-container {
@@ -460,24 +472,24 @@ img {
     gap: 8px; 
 }
 .footer-col h3 {
-    color: white;
+    color: var(--bg-white);
     font-size: 1rem;
     margin-bottom: 5px;
 }
 .footer-col a, .footer-bottom a {
-    color: #DEEBFF;
+    color: #e7f7ed;
     font-size: 0.9rem;
     transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 .footer-col a:hover, .footer-bottom a:hover {
-    color: #fff; 
+    color: var(--bg-white); 
     text-decoration: underline;
 }
 .footer-bottom {
-    border-top: 1px solid #5E6C84;
+    border-top: 1px solid #378a5b; /* Зеленый разделитель */
     padding-top: 20px;
     display: flex;
     gap: 15px;
     font-size: 0.9rem;
-    color: #DEEBFF;
+    color: #e7f7ed;
 }
