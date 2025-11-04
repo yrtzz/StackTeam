@@ -1,1 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krello - Наш клон Trello</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <header class="main-header">
+        <div class="container nav-container">
+            <div class="logo">
+                <h2>Krello</h2>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item has-dropdown">
+                        <a href="#">Функции</a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-content features-dropdown">
+                                <div class="dropdown-main">
+                                    <h4>Изучите функции</h4>
+                                    <div class="grid-col-3">
+                                        <a href="#"><i class="fas fa-inbox"></i> <b>Inbox</b><p>Собирайте важные детали...</p></a>
+                                        <a href="#"><i class="fas fa-calendar-alt"></i> <b>Planner</b><p>Синхронизируйте календарь...</p></a>
+                                        <a href="#"><i class="fas fa-robot"></i> <b>Автоматизация</b><p>Автоматизируйте задачи...</p></a>
+                                        <a href="#"><i class="fas fa-rocket"></i> <b>Power-Ups</b><p>Усильте свои команды...</p></a>
+                                        <a href="#"><i class="fas fa-clone"></i> <b>Шаблоны</b><p>Дайте команде готовый план...</p></a>
+                                        <a href="#"><i class="fas fa-puzzle-piece"></i> <b>Интеграции</b><p>Найдите приложения, которые...</p></a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-sidebar">
+                                    <h4>Знакомьтесь, Krello</h4>
+                                    <p>Krello помогает вашей команде легко выполнять работу...</p>
+                                    <a href="#" class="btn btn-secondary">Узнать о Krello</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#">Решения</a>
+                         <div class="dropdown-menu">
+                            <div class="dropdown-content solutions-dropdown">
+                                <div class="dropdown-main">
+                                    <h4>Используйте готовые сценарии Krello для любых команд...</h4>
+                                    <div class="grid-col-3">
+                                        <a href="#"><i class="fas fa-bullhorn"></i> <b>Команды маркетинга</b></a>
+                                        <a href="#"><i class="fas fa-tasks"></i> <b>Продакт-менеджмент</b></a>
+                                        <a href="#"><i class="fas fa-code"></i> <b>Инженерные команды</b></a>
+                                        <a href="#"><i class="fas fa-paint-brush"></i> <b>Дизайн-команды</b></a>
+                                        <a href="#"><i class="fas fa-lightbulb"></i> <b>Стартапы</b></a>
+                                        <a href="#"><i class="fas fa-users"></i> <b>Удаленные команды</b></a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-sidebar">
+                                    <h4>Наш продукт в действии</h4>
+                                    <a href="#"><b>Пример: Управление задачами</b></a>
+                                    <a href="#"><b>Пример: База знаний</b></a>
+                                    <a href="#"><b>Пример: Управление проектом</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#">Планы</a>
+                         <div class="dropdown-menu">
+                            <div class="dropdown-content plans-dropdown">
+                                <div class="dropdown-main">
+                                     <div class="grid-col-3">
+                                        <a href="#"><i class="fas fa-user-friends"></i> <b>Standard</b><p>Для команд, которым нужно...</p></a>
+                                        <a href="#"><i class="fas fa-star"></i> <b>Premium</b><p>Лучше всего для команд до 100...</p></a>
+                                        <a href="#"><i class="fas fa-building"></i> <b>Enterprise</b><p>Все, что нужно вашим...</p></a>
+                                    </div>
+                                    <div class="free-plan-promo">
+                                        <a href="#"><i class="fas fa-check-circle"></i> <b>Free plan</b><p>Для отдельных лиц или малых...</p></a>
+                                        <a href="#" class="btn btn-secondary">Пройти тур по Krello</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-sidebar">
+                                    <h4>Сравнить планы и цены</h4>
+                                    <p>Неважно, 2 у вас человека или 2000...</p>
+                                    <a href="#" class="btn btn-secondary">Смотреть цены Krello</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#">Ресурсы</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-secondary">Войти</a>
+                <a href="#" class="btn btn-primary">Получить Krello бесплатно</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-text">
+                    <h1>Захватывайте, организуйте и решайте задачи где угодно.</h1>
+                    <p>Избавьтесь от беспорядка и хаоса — раскройте свою продуктивность с Krello.</p>
+                    <form class="cta-form">
+                        <input type="email" placeholder="Email">
+                        <button type="submit" class="btn btn-primary">Регистрация — бесплатно!</button>
+                    </form>
+                </div>
+                <div class="hero-image">
+                    <img src="hero-mockup.png" alt="Krello app mockup">
+                </div>
+            </div>
+        </section>
+
+        <section class="features-interactive">
+            <div class="container">
+                <h2>Ваша электростанция продуктивности</h2>
+                <p class="section-subtitle">Оставайтесь организованным и эффективным с Inbox, Boards и Planner.</p>
+                
+                <div class="features-content">
+                    <div class="features-list">
+                        <div class="feature-item" data-tab="inbox">
+                            <h3><i class="fas fa-inbox"></i> Inbox</h3>
+                            <p>Когда это у вас на уме, это попадает в Inbox...</p>
+                        </div>
+                        <div class="feature-item active" data-tab="boards">
+                            <h3><i class="fas fa-columns"></i> Boards</h3>
+                            <p>Ваш список дел может быть длинным, но он управляем!</p>
+                        </div>
+                        <div class="feature-item" data-tab="planner">
+                            <h3><i class="fas fa-calendar-alt"></i> Planner</h3>
+                            <p>Перетаскивайте, бросайте, готово. Переносите задачи в календарь.</p>
+                        </div>
+                    </div>
+                    <div class="features-image">
+                        <img src="inbox-demo.png" alt="Krello Inbox" id="tab-inbox-img" class="feature-tab-image">
+                        <img src="boards-demo.png" alt="Krello Boards" id="tab-boards-img" class="feature-tab-image active">
+                        <img src="planner-demo.png" alt="Krello Planner" id="tab-planner-img" class="feature-tab-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="integrations">
+            <div class="container">
+                <h2>От сообщения к действию</h2>
+                <p class="section-subtitle">Быстро превращайте общение в задачи.</p>
+                <div class="integration-card">
+                    <div class="integration-image">
+                        <img src="email-to-task.png" alt="Email integration">
+                    </div>
+                    <div class="integration-text">
+                        <h3>EMAIL MAGIC</h3>
+                        <p>Легко превращайте свои email в задачи! Просто перешлите их в свой Krello inbox.</p>
+                    </div>
+                </div>
+                <div class="integration-card reverse">
+                    <div class="integration-image">
+                        <img src="chat-to-task.png" alt="Chat integration">
+                    </div>
+                    <div class="integration-text">
+                        <h3>MESSAGE APP SORCERY</h3>
+                        <p>Нужно отследить сообщение из Slack или Teams? Отправьте его прямо на свою доску Krello!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <div class="testimonial-slider">
+                    
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-quote">
+                            <blockquote>
+                                "[Krello] отлично подходит для упрощения сложных процессов..."
+                            </blockquote>
+                            <p class="author-name">Джои Розенберг</p>
+                            <p class="author-title">Global Leadership Director at Women Who Code</p>
+                        </div>
+                        <div class="testimonial-stat">
+                            <p class="stat-number">75%</p>
+                            <p class="stat-text">
+                                организаций сообщают, что Krello приносит пользу их бизнесу в течение 30 дней.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide">
+                        <div class="testimonial-quote">
+                            <blockquote>
+                                "Мы использовали Krello для обеспечения ясности шагов, требований и процедур..."
+                            </blockquote>
+                            <p class="author-name">Джефферсон Скомакао</p>
+                            <p class="author-title">Development Manager at IKEA/PTC</p>
+                        </div>
+                        <div class="testimonial-stat">
+                            <p class="stat-number">74%</p>
+                            <p class="stat-text">
+                                клиентов говорят, что Trello улучшило общение с их коллегами и командами.
+                            </D>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide">
+                        <div class="testimonial-quote">
+                            <blockquote>
+                                "Будь кто-то в офисе, работая из дома или на месте с клиентом, каждый может..."
+                            </blockquote>
+                            <p class="author-name">Сумит Моге</p>
+                            <p class="author-title">Product Manager at ThoughtWorks</p>
+                        </div>
+                        <div class="testimonial-stat">
+                            <p class="stat-number">81%</p>
+                            <p class="stat-text">
+                                клиентов выбрали Trello за простоту использования.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-btn carousel-next"><i class="fas fa-chevron-right"></i></button>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="social-proof">
+            <div class="container">
+                <p>Присоединяйтесь к миллионам пользователей, которые используют Krello, чтобы делать больше.</p>
+                <div class="logos">
+                    <span>VISA</span>
+                    <span>coinbase</span>
+                    <span>John Deere</span>
+                    <span>Zoom</span>
+                    <span>GRAND HYATT</span>
+                    <span>Fender</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta">
+            <div class="container">
+                <h2>Начните с Krello сегодня</h2>
+                <form class="cta-form">
+                    <input type="email" placeholder="Email">
+                    <button type="submit" class="btn btn-primary">Регистрация — бесплатно!</button>
+                </form>
+                <p class="legal-text">Вводя свой email, вы соглашаетесь с Политикой конфиденциальности.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <div class="logo">
+                     <h2>Krello</h2>
+                </div>
+                <a href="#">Войти</a>
+            </div>
+            <div class="footer-col">
+                <h3>О Krello</h3>
+                <a href="#">Что за досками</a>
+            </div>
+            <div class="footer-col">
+                <h3>Вакансии</h3>
+                <a href="#">Открытые роли</a>
+            </div>
+            <div class="footer-col">
+                <h3>Приложения</h3>
+                <a href="#">Скачать приложение</a>
+            </div>
+            <div class="footer-col">
+                <h3>Связаться с нами</h3>
+                <a href="#">Нужна помощь?</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>© Copyright 2025 Krello</span>
+            <a href="#">Политика</a>
+            <a href="#">Условия</a>
+        </div>
+    </footer>
+
+</body>
+</html>
