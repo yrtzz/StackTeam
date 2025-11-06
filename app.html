@@ -4,17 +4,179 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ваши доски - Krello</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="app.css">
+    
+    <style>
+        /* ... (весь CSS для app.html остается без изменений) ... */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: var(--bg-white);
+        }
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary-color-dark);
+            color: var(--bg-white);
+            padding: 10px 20px;
+        }
+        .app-header .logo-link { text-decoration: none; }
+        .app-header .logo h2 { margin: 0; color: var(--bg-white); opacity: 0.8; }
+        .header-left { flex: 1; }
+        .header-center {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .header-center input {
+            width: 300px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--bg-white);
+        }
+        .header-center input::placeholder { color: rgba(255, 255, 255, 0.7); }
+        .header-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-right i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        .header-right .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #FFAB00;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .app-container {
+            display: flex;
+            height: calc(100vh - 58px); 
+            overflow: hidden;
+        }
+        .app-sidebar {
+            width: 260px;
+            background: var(--primary-color-dark);
+            color: var(--primary-color-light);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .app-sidebar nav { display: flex; flex-direction: column; gap: 5px; }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: var(--primary-color-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .sidebar-item:hover { background: rgba(255, 255, 255, 0.1); }
+        .sidebar-item.active { background: var(--primary-color-light); color: var(--primary-color); }
+        .sidebar-item i { width: 20px; }
+        .sidebar-promo {
+            margin-top: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .sidebar-promo h4 { margin-bottom: 5px; color: var(--bg-white); }
+        .sidebar-promo p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px; }
+        .promo-icons { display: flex; justify-content: space-around; font-size: 1.5rem; opacity: 0.8; }
+        .board-content {
+            flex-grow: 1;
+            background: linear-gradient(135deg, #4c1d95, #4a00e0);
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .board-header { margin-bottom: 20px; }
+        .board-header h3 { color: var(--bg-white); font-size: 1.3rem; margin: 0; }
+        .board-columns { display: flex; gap: 15px; height: 100%; }
+        .column {
+            width: 280px;
+            flex-shrink: 0;
+            background: #101204;
+            color: #b6c2cf;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100% - 40px);
+        }
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px 10px 10px;
+        }
+        .column-header h4 { margin: 0; color: var(--bg-white); }
+        .column-header i { cursor: pointer; }
+        .column-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 50px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 5px;
+        }
+        .column-cards::-webkit-scrollbar { width: 8px; }
+        .column-cards::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        .column-cards::-webkit-scrollbar-track { background: #222; }
+        .card {
+            background: #22272B;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .card:hover { background: #2c333a; }
+        .card img { width: 100%; border-radius: 3px; margin-bottom: 5px; }
+        .card p { margin: 0; color: var(--bg-white); }
+        .add-card-btn {
+            background: transparent;
+            border: none;
+            color: #b6c2cf;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: left;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+            margin-top: auto; 
+        }
+        .add-card-btn:hover { background: #2c333a; }
+    </style>
 </head>
 <body>
 
     <header class="app-header">
         <div class="header-left">
-            <a href="index.html" class="logo">
-                <h2>Krello</h2>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <h2>Krello</h2>
+                </div>
             </a>
         </div>
         <div class="header-center">
@@ -50,29 +212,27 @@
 
         <main class="board-content">
             <header class="board-header">
-                <h3>My Trello board</h3>
-                </header>
+                <h3>My Krello board</h3>
+            </header>
 
             <div class="board-columns">
-
                 <div class="column">
                     <div class="column-header">
-                        <h4>Trello Starter Guide</h4>
+                        <h4>Krello Starter Guide</h4>
                         <i class="fas fa-ellipsis-h"></i>
                     </div>
                     <div class="column-cards">
                         <div class="card">
-                            <img src="card-image-1.png" alt="Video thumbnail">
-                            <p>New to Trello? Start here</p>
+                            <img src="images/card-image-1.png" alt="Video thumbnail">
+                            <p>New to Krello? Start here</p>
                         </div>
                         <div class="card">
-                            <img src="card-image-2.png" alt="Email/Slack capture">
+                            <img src="images/card-image-2.png" alt="Email/Slack capture">
                             <p>Capture from email, Slack, and...</p>
                         </div>
                     </div>
                     <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
                 </div>
-
                 <div class="column">
                     <div class="column-header">
                         <h4>Today</h4>
@@ -80,31 +240,30 @@
                     </div>
                     <div class="column-cards">
                         <div class="card">
-                            <p>Start using Trello</p>
+                            <p>Start using Krello</p>
                         </div>
                     </div>
                     <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
                 </div>
-
                 <div class="column">
                     <div class="column-header">
                         <h4>This Week</h4>
                         <i class="fas fa-ellipsis-h"></i>
                     </div>
-                    <div class="column-cards">
-                        </div>
+                    <div class="column-cards"></div>
                     <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
                 </div>
-
                 <div class="column">
                     <div class="column-header">
                         <h4>Later</h4>
                         <i class="fas fa-ellipsis-h"></i>
                     </div>
-                    <div class="column-cards">
-                        </div>
+                    <div class="column-cards"></div>
                     <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
                 </div>
+            </div> 
+        </main> 
+    </div> 
 
-            </div> </main> </div> </body>
+</body>
 </html>
