@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krello - Наш клон Trello</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
     <link rel="stylesheet" href="style.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -45,7 +47,7 @@
                     <li class="nav-item has-dropdown">
                         <a href="#">Решения</a>
                          <div class="dropdown-menu">
-                            <div class="dropdown-content solutions-dropdown">
+                             <div class="dropdown-content solutions-dropdown">
                                 <div class="dropdown-main">
                                     <h4>Используйте готовые сценарии Krello для любых команд...</h4>
                                     <div class="grid-col-3">
@@ -69,7 +71,7 @@
                     <li class="nav-item has-dropdown">
                         <a href="#">Планы</a>
                          <div class="dropdown-menu">
-                            <div class="dropdown-content plans-dropdown">
+                             <div class="dropdown-content plans-dropdown">
                                 <div class="dropdown-main">
                                      <div class="grid-col-3">
                                         <a href="#"><i class="fas fa-user-friends"></i> <b>Standard</b><p>Для команд, которым нужно...</p></a>
@@ -93,8 +95,8 @@
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <a href="#" class="btn btn-secondary">Войти</a>
-                <a href="#" class="btn btn-primary">Получить Krello бесплатно</a>
+                <a href="signup.html" class="btn btn-secondary">Войти</a>
+                <a href="signup.html" class="btn btn-primary">Получить Krello бесплатно</a>
             </div>
         </div>
     </header>
@@ -105,8 +107,8 @@
                 <div class="hero-text">
                     <h1>Захватывайте, организуйте и решайте задачи где угодно.</h1>
                     <p>Избавьтесь от беспорядка и хаоса — раскройте свою продуктивность с Krello.</p>
-                    <form class="cta-form">
-                        <input type="email" placeholder="Email">
+                    <form class="cta-form" action="signup.html"> 
+                        <input type="email" placeholder="Email" name="email">
                         <button type="submit" class="btn btn-primary">Регистрация — бесплатно!</button>
                     </form>
                 </div>
@@ -149,6 +151,7 @@
             <div class="container">
                 <h2>От сообщения к действию</h2>
                 <p class="section-subtitle">Быстро превращайте общение в задачи.</p>
+                
                 <div class="integration-card">
                     <div class="integration-image">
                         <img src="email-to-task.png" alt="Email integration">
@@ -158,6 +161,7 @@
                         <p>Легко превращайте свои email в задачи! Просто перешлите их в свой Krello inbox.</p>
                     </div>
                 </div>
+
                 <div class="integration-card reverse">
                     <div class="integration-image">
                         <img src="chat-to-task.png" alt="Chat integration">
@@ -217,7 +221,7 @@
                         <div class="testimonial-stat">
                             <p class="stat-number">81%</p>
                             <p class="stat-text">
-                                клиентов выбрали Krello за простоту использования.
+                                клиентов выбрали Trello за простоту использования.
                             </p>
                         </div>
                     </div>
@@ -249,8 +253,8 @@
         <section class="final-cta">
             <div class="container">
                 <h2>Начните с Krello сегодня</h2>
-                <form class="cta-form">
-                    <input type="email" placeholder="Email">
+                <form class="cta-form" action="signup.html"> 
+                    <input type="email" placeholder="Email" name="email">
                     <button type="submit" class="btn btn-primary">Регистрация — бесплатно!</button>
                 </form>
                 <p class="legal-text">Вводя свой email, вы соглашаетесь с Политикой конфиденциальности.</p>
@@ -264,7 +268,7 @@
                 <div class="logo">
                      <h2>Krello</h2>
                 </div>
-                <a href="#">Войти</a>
+                <a href="signup.html">Войти</a>
             </div>
             <div class="footer-col">
                 <h3>О Krello</h3>
@@ -290,5 +294,99 @@
         </div>
     </footer>
 
-</body>
+
+    <script>
+        // Ждем, пока загрузится вся HTML-структура
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- ЛОГИКА 1: Навигация по клику ---
+            const navItems = document.querySelectorAll('.nav-item.has-dropdown');
+            
+            navItems.forEach(item => {
+                // Используем 'click', а не 'mousedown', чтобы было надежнее
+                item.addEventListener('click', function(event) {
+                    // Находим меню, на которое кликнули
+                    const clickedMenu = this.querySelector('.dropdown-menu');
+                    
+                    // Проверяем, было ли оно уже открыто
+                    const wasOpen = clickedMenu.classList.contains('is-open');
+                    
+                    // Сначала закрываем ВСЕ меню
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('is-open');
+                    });
+
+                    // Если оно не было открыто, открываем его
+                    if (!wasOpen) {
+                        clickedMenu.classList.add('is-open');
+                    }
+                    
+                    // Останавливаем "всплытие" клика, чтобы он не закрыл сам себя
+                    event.stopPropagation();
+                });
+            });
+
+            // Закрываем меню, если кликнули ВНЕ его
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('is-open');
+                });
+            });
+
+
+            // --- ЛОГИКА 2: Табы "Электростанции" ---
+            const featureItems = document.querySelectorAll('.feature-item');
+            
+            featureItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // 1. Убираем .active у всех кнопок
+                    featureItems.forEach(btn => btn.classList.remove('active'));
+                    // 2. Добавляем .active нажатой кнопке
+                    this.classList.add('active');
+                    
+                    // 3. Убираем .active у всех картинок
+                    document.querySelectorAll('.feature-tab-image').forEach(img => {
+                        img.classList.remove('active');
+                    });
+                    
+                    // 4. Добавляем .active нужной картинке
+                    // (Проверка, что элемент существует, прежде чем добавить класс)
+                    const targetImage = document.querySelector('#tab-' + tabId + '-img');
+                    if (targetImage) {
+                        targetImage.classList.add('active');
+                    }
+                });
+            });
+
+
+            // --- ЛОГИКА 3: Карусель Отзывов ---
+            const dots = document.querySelectorAll('.dot');
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideId = this.getAttribute('data-slide');
+                    
+                    // 1. Убираем .active у всех точек
+                    dots.forEach(d => d.classList.remove('active'));
+                    // 2. Добавляем .active нажатой точке
+                    this.classList.add('active');
+                    
+                    // 3. Убираем .active у всех слайдов
+                    document.querySelectorAll('.testimonial-slide').forEach(slide => {
+                        slide.classList.remove('active');
+                    });
+                    
+                    // 4. Добавляем .active нужному слайду
+                    const targetSlide = document.querySelector('.testimonial-slide[data-slide="' + slideId + '"]');
+                    if(targetSlide) {
+                         targetSlide.classList.add('active');
+                    }
+                });
+            });
+
+        });
+    </script>
+    </body>
 </html>
