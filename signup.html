@@ -3,35 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация в Krello</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Регистрация - Krello</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="signup.css">
+    <style>
+        /* ... (CSS для signup.html остается без изменений) ... */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-gray-light);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .shape { position: fixed; opacity: 0.15; z-index: -1; }
+        .shape-1 {
+            width: 400px; height: 400px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            bottom: -150px; left: -150px;
+            filter: blur(50px);
+        }
+        .shape-2 {
+            width: 300px; height: 300px;
+            background: #F59E0B;
+            border-radius: 50%;
+            top: -100px; right: -100px;
+            filter: blur(50px);
+        }
+        .signup-container { width: 100%; max-width: 450px; text-align: center; padding: 20px; }
+        .signup-header { margin-bottom: 25px; }
+        .signup-header .logo-link { text-decoration: none; }
+        .signup-header .logo h2 { font-size: 2.2rem; margin: 0; }
+        .signup-card {
+            background: var(--bg-white);
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .signup-card h1 { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-dark); }
+        #form-signup-email { display: flex; flex-direction: column; gap: 15px; }
+        #form-signup-email input {
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+        }
+        #form-signup-email input:focus { outline: none; border-color: var(--primary-color); }
+        #form-signup-email .btn-primary { padding: 12px; font-size: 1rem; font-weight: 700; }
+        .separator { font-size: 0.8rem; color: var(--text-light-gray); margin: 20px 0; }
+        .social-login { display: flex; flex-direction: column; gap: 10px; }
+        .btn-social {
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            background: var(--bg-white);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.2s ease;
+            color: var(--text-dark); 
+            text-decoration: none; 
+        }
+        .btn-social:hover { background-color: var(--bg-gray-medium); }
+        .btn-social i { font-size: 1.2rem; width: 20px; text-align: center; }
+        .btn-social .fa-google { color: #DB4437; }
+        .btn-social .fa-microsoft { color: #00A4EF; }
+        .btn-social .fa-apple { color: #000000; }
+        .btn-social .fa-slack { color: #E01E5A; }
+        .footer-separator { border: none; border-top: 1px solid var(--border-color); margin: 20px 0; }
+        .login-link { font-size: 0.9rem; }
+        .signup-footer { margin-top: 25px; display: flex; justify-content: center; gap: 20px; }
+        .signup-footer a { font-size: 0.8rem; color: var(--text-light-gray); }
+        .signup-footer a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>
-
     <div class="signup-container">
         <header class="signup-header">
-            <div class="logo">
-                <a href="index.html" style="text-decoration: none;"><h2>Krello</h2></a>
-            </div>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <h2>Krello</h2>
+                </div>
+            </a>
         </header>
-
         <main class="signup-content">
             <div class="signup-card">
                 <h1>Присоединяйтесь к Krello</h1>
-                
                 <form id="form-signup-email" action="app.html">
                     <input type="email" placeholder="Введите ваш email" required>
                     <button type="submit" class="btn btn-primary">Продолжить</button>
                 </form>
-
                 <div class="separator">ИЛИ</div>
-
                 <div class="social-login">
                     <a href="app.html" class="btn-social">
                         <i class="fab fa-google"></i> Продолжить с Google
@@ -46,17 +120,14 @@
                         <i class="fab fa-slack"></i> Продолжить со Slack
                     </a>
                 </div>
-
                 <hr class="footer-separator">
                 <a href="#" class="login-link">Уже есть аккаунт? Войти</a>
             </div>
-            
             <footer class="signup-footer">
                 <a href="#">Политика конфиденциальности</a>
                 <a href="#">Условия использования</a>
             </footer>
         </main>
     </div>
-
 </body>
 </html>
