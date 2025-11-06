@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ваши доски - Krello</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-left">
+            <a href="index.html" class="logo">
+                <h2>Krello</h2>
+            </a>
+        </div>
+        <div class="header-center">
+            <input type="text" placeholder="Поиск...">
+            <button class="btn btn-primary">Создать</button>
+        </div>
+        <div class="header-right">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-question-circle"></i>
+            <div class="user-avatar">SA</div>
+        </div>
+    </header>
+
+    <div class="app-container">
+
+        <aside class="app-sidebar">
+            <nav>
+                <a href="#" class="sidebar-item active"><i class="fas fa-inbox"></i> Inbox</a>
+                <a href="#" class="sidebar-item"><i class="fas fa-columns"></i> Доски</a>
+                <a href="#" class="sidebar-item"><i class="fas fa-star"></i> Избранное</a>
+            </nav>
+            <div class="sidebar-promo">
+                <h4>Объедините задачи</h4>
+                <p>Email, Slack, Chrome... Все попадет в ваш Inbox.</p>
+                <div class="promo-icons">
+                    <i class="fas fa-envelope"></i>
+                    <i class="fab fa-slack"></i>
+                    <i class="fab fa-teams"></i>
+                    <i class="fab fa-chrome"></i>
+                </div>
+            </div>
+        </aside>
+
+        <main class="board-content">
+            <header class="board-header">
+                <h3>My Trello board</h3>
+                </header>
+
+            <div class="board-columns">
+
+                <div class="column">
+                    <div class="column-header">
+                        <h4>Trello Starter Guide</h4>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="column-cards">
+                        <div class="card">
+                            <img src="card-image-1.png" alt="Video thumbnail">
+                            <p>New to Trello? Start here</p>
+                        </div>
+                        <div class="card">
+                            <img src="card-image-2.png" alt="Email/Slack capture">
+                            <p>Capture from email, Slack, and...</p>
+                        </div>
+                    </div>
+                    <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
+                </div>
+
+                <div class="column">
+                    <div class="column-header">
+                        <h4>Today</h4>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="column-cards">
+                        <div class="card">
+                            <p>Start using Trello</p>
+                        </div>
+                    </div>
+                    <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
+                </div>
+
+                <div class="column">
+                    <div class="column-header">
+                        <h4>This Week</h4>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="column-cards">
+                        </div>
+                    <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
+                </div>
+
+                <div class="column">
+                    <div class="column-header">
+                        <h4>Later</h4>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="column-cards">
+                        </div>
+                    <button class="add-card-btn"><i class="fas fa-plus"></i> Добавить карточку</button>
+                </div>
+
+            </div> </main> </div> </body>
+</html>
