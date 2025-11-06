@@ -1,20 +1,17 @@
-/* --- (v6.0) НОВАЯ ЦВЕТОВАЯ СХЕМА "KRELLO" --- */
+/* --- (v13.0) ЦВЕТОВАЯ СХЕМА "KRELLO" (Blue) --- */
 :root {
-    --primary-color: #16A34A; /* Основной Зеленый */
-    --primary-color-dark: #14532D; /* Темно-зеленый (для футера) */
-    --primary-color-light: #DCFCE7; /* Светло-зеленый (для hover) */
-
-    --text-dark: #172B4D; /* Темный текст (как в Trello) */
-    --text-light-gray: #5E6C84; /* Серый текст (как в Trello) */
-    
-    --bg-gray-light: #F3F3F5; /* Наш светло-серый фон */
-    --bg-gray-medium: #F4F5F7; /* Наш средне-серый фон */
+    --primary-color: #0052CC;
+    --primary-color-dark: #091E42;
+    --primary-color-light: #DEEBFF;
+    --text-dark: #172B4D;
+    --text-light-gray: #5E6C84;
+    --bg-gray-light: #F3F3F5;
+    --bg-gray-medium: #F4F5F7;
     --bg-white: #FFFFFF;
-    
     --border-color: #DFE1E6;
 }
 
-/* --- Общие стили (v6.0) --- */
+/* --- Общие стили --- */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -34,31 +31,18 @@ h1, h2, h3, h4 {
     margin-top: 0;
     line-height: 1.3; 
 }
-h1 {
-    font-size: 2.5rem; 
-    font-weight: 700;
-}
-h2 {
-    font-size: 2.0rem; 
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 15px;
-}
+h1 { font-size: 2.5rem; font-weight: 700; }
+h2 { font-size: 2.0rem; font-weight: 700; text-align: center; margin-bottom: 15px; }
 .section-subtitle {
     font-size: 1.1rem; 
     text-align: center;
     max-width: 600px;
     margin: 0 auto 30px auto; 
 }
-a {
-    text-decoration: none;
-    color: var(--primary-color); 
-}
-img {
-    max-width: 100%;
-}
+a { text-decoration: none; color: var(--primary-color); }
+img { max-width: 100%; }
 
-/* --- Стили Кнопок и Форм (v6.0 - Зеленый) --- */
+/* --- Стили Кнопок и Форм --- */
 .btn {
     padding: 10px 16px; 
     border: none;
@@ -70,26 +54,11 @@ img {
     display: inline-block;
     transition: background-color 0.2s ease;
 }
-.btn-primary {
-    background-color: var(--primary-color);
-    color: white;
-}
-.btn-primary:hover {
-    background-color: var(--primary-color-dark);
-}
-.btn-secondary {
-    background-color: transparent;
-    color: var(--primary-color);
-    border: 1px solid var(--border-color); 
-}
-.btn-secondary:hover {
-    background-color: var(--primary-color-light); 
-}
-.cta-form {
-    display: flex;
-    margin-top: 20px;
-    gap: 10px;
-}
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-primary:hover { background-color: #0065FF; }
+.btn-secondary { background-color: transparent; color: var(--primary-color); border: 1px solid var(--border-color); }
+.btn-secondary:hover { background-color: var(--primary-color-light); }
+.cta-form { display: flex; margin-top: 20px; gap: 10px; }
 .cta-form input[type="email"] {
     flex-grow: 1;
     padding: 10px 12px; 
@@ -98,7 +67,7 @@ img {
     font-size: 0.95rem;
 }
 
-/* --- 1. Хедер (v6.0 - Зеленый) --- */
+/* --- 1. Хедер --- */
 .main-header {
     background: var(--bg-white);
     position: sticky;
@@ -106,18 +75,8 @@ img {
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.main-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.main-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
 .main-nav a {
     color: var(--text-dark);
     font-weight: 500;
@@ -126,22 +85,24 @@ img {
     border-bottom: 2px solid transparent;
     transition: border-color 0.2s ease-in-out;
 }
-.main-nav a:hover {
-    border-color: var(--primary-color); /* Зеленая линия при наведении */
+/* Эффект наведения (Hover) - как просил тимлид */
+.main-nav a:hover,
+.nav-item:hover > a { 
+    border-color: var(--primary-color); 
 }
-.auth-buttons {
-    display: flex;
-    gap: 10px;
-}
-.logo h2 {
-    margin: 0;
-    color: var(--primary-color); /* Логотип тоже зеленый */
+/* Стиль для "запертого" меню */
+.nav-item.is-locked > a {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
-/* --- 1.1 ХЕДЕР - ДРОПДАУНЫ (v6.0 - Зеленый) --- */
-.nav-item {
-    position: relative; 
-}
+.auth-buttons { display: flex; gap: 10px; }
+.logo-link { text-decoration: none; }
+.logo-link h2, .logo h2 { margin: 0; color: var(--primary-color); }
+
+
+/* --- 1.1 ХЕДЕР - ДРОПДАУНЫ --- */
+.nav-item { position: relative; }
 .dropdown-menu {
     display: none; 
     position: absolute;
@@ -153,162 +114,81 @@ img {
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
     border: 1px solid var(--border-color);
     margin-top: 5px; 
-    width: 800px; 
+    width: 900px;
 }
-.dropdown-menu.is-open {
+/* JS-класс для открытия */
+.nav-item.is-open .dropdown-menu {
     display: block;
 }
-.dropdown-content {
-    display: flex;
-    padding: 20px;
-}
-.dropdown-main {
-    flex: 2;
-    padding-right: 20px;
-    border-right: 1px solid var(--border-color);
-}
-.dropdown-sidebar {
-    flex: 1;
-    padding-left: 20px;
-    background: var(--bg-gray-medium); 
-    margin: -20px; 
-    padding: 20px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-.dropdown-sidebar h4 {
-    margin-bottom: 10px;
-}
-.dropdown-sidebar p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin-bottom: 15px;
-}
-.grid-col-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px; 
-}
-.grid-col-3 a {
+.dropdown-menu.dropdown-small { width: 600px; }
+.dropdown-content { padding: 30px; }
+
+/* Сетки */
+.grid-col-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+.grid-col-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+
+/* Группы в меню (не-ссылки) */
+.nav-group h3 { font-size: 1rem; font-weight: 700; margin-bottom: 5px; }
+.nav-group i { margin-right: 8px; color: var(--primary-color); width: 15px; text-align: center; }
+.nav-group p { font-size: 0.9rem; color: var(--text-light-gray); margin: 0; line-height: 1.4; }
+
+/* Группы-ссылки (для "Ресурсов") */
+.nav-group-link {
     display: block;
-    padding: 10px; 
-    border-radius: 3px;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
     transition: background-color 0.2s ease;
 }
-.grid-col-3 a:hover {
-    background: var(--primary-color-light);
-    border-radius: 3px;
+.nav-group-link:hover {
+    background-color: var(--primary-color-light);
 }
-.grid-col-3 a p {
-    font-size: 0.8rem;
-    color: var(--text-light-gray);
-    margin: 5px 0 0 0;
-}
-.grid-col-3 i {
-    margin-right: 8px;
-    color: var(--primary-color); /* Иконки зеленые */
-    width: 15px; 
-    text-align: center;
-}
-.free-plan-promo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--bg-gray-medium);
+.nav-group-link h3 { color: var(--text-dark); }
+.nav-group-link p { color: var(--text-light-gray); }
+.nav-group-link i { margin-right: 8px; color: var(--primary-color); width: 15px; text-align: center; }
+
+
+/* --- 2. Главный экран (Hero) --- */
+.hero { padding: 40px 0; background-color: var(--bg-gray-light); }
+.hero-container { display: flex; align-items: center; gap: 30px; }
+.hero-text { flex: 1; }
+.hero-image { flex: 1; text-align: center; }
+.hero-image img { max-width: 450px; }
+
+/* --- 3. "Электростанция" (Дизайн Trello) --- */
+.features-interactive { padding: 60px 0; background: var(--bg-white); }
+.features-container { display: flex; gap: 40px; align-items: center; }
+.features-text-content { flex: 1; }
+.section-subtitle-left { font-size: 1.1rem; text-align: left; margin: 0 0 30px 0; }
+.feature-tab-links { display: flex; flex-direction: column; }
+.feature-tab-link {
     padding: 15px;
     border-radius: 5px;
-    margin-top: 15px;
-}
-.free-plan-promo i {
-    margin-right: 8px;
-    color: var(--primary-color);
-}
-
-/* --- 2. Главный экран (Hero) (v6.0) --- */
-.hero {
-    padding: 40px 0; 
-    background-color: var(--bg-gray-light); 
-}
-.hero-container {
-    display: flex;
-    align-items: center;
-    gap: 30px; 
-}
-.hero-text {
-    flex: 1;
-}
-.hero-image {
-    flex: 1;
-    text-align: center;
-}
-.hero-image img {
-    max-width: 400px; 
-}
-
-/* --- 3. Интерактивные функции (v6.0) --- */
-.features-interactive {
-    padding: 40px 0; 
-    background: var(--bg-white); 
-}
-.features-content {
-    display: flex;
-    gap: 30px; 
-    align-items: flex-start;
-}
-.features-list {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.feature-item {
-    background: var(--bg-gray-medium); 
-    padding: 15px; 
-    border-radius: 5px;
-    border: 3px solid transparent; 
+    border-left: 3px solid transparent;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-.feature-item:hover {
-    background-color: #e9eaec; 
-}
-.feature-item.active {
-    background-color: var(--bg-white); 
-    border-left: 3px solid var(--primary-color); /* Активная полоса - зеленая */
-}
-.feature-item h3 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.feature-item i {
-    color: var(--primary-color);
-}
-.features-image {
-    flex: 2;
-    background: var(--bg-white);
-    padding: 20px;
-    border-radius: 5px;
-    min-height: 300px; 
-    position: relative;
-    border: 1px solid var(--border-color); 
-}
+.feature-tab-link h3 { margin-bottom: 5px; }
+.feature-tab-link p { margin: 0; color: var(--text-light-gray); font-size: 0.95rem; }
+.feature-tab-link:hover { background-color: var(--bg-gray-medium); }
+.feature-tab-link.active { border-left: 3px solid var(--primary-color); background-color: var(--bg-white); }
+.features-image-content { flex: 1.5; min-height: 400px; position: relative; }
 .feature-tab-image {
-    display: none;
-}
-.feature-tab-image.active {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; /* ПЛАВНОСТЬ */
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
 }
+.feature-tab-image.active { opacity: 1; }
 
-/* --- 4. Интеграции (v6.0 - Зеленый) --- */
-.integrations {
-    padding: 40px 0; 
-    background: var(--primary-color); /* Фон - основной зеленый */
-    color: white;
-}
-.integrations h2, .integrations .section-subtitle {
-    color: white;
-}
+
+/* --- 4. Интеграции (Синий фон) --- */
+.integrations { padding: 40px 0; background: var(--primary-color); color: white; }
+.integrations h2, .integrations .section-subtitle { color: white; }
 .integration-card {
     display: flex;
     gap: 30px; 
@@ -320,71 +200,39 @@ img {
     margin-bottom: 20px; 
     transition: box-shadow 0.2s ease-in-out;
 }
-.integration-card:hover {
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-}
-.integration-card.reverse {
-    flex-direction: row-reverse;
-}
-.integration-text, .integration-image {
-    flex: 1;
-}
+.integration-card:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+.integration-card.reverse { flex-direction: row-reverse; }
+.integration-text, .integration-image { flex: 1; }
 
-/* --- 5. Отзывы (v6.0 - Стили для точек) --- */
-.testimonials {
-    padding: 40px 0; 
-}
-.testimonial-slider {
-    position: relative;
-    overflow: hidden; 
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-}
+/* --- 5. Отзывы (Карусель) --- */
+.testimonials { padding: 40px 0; }
+.testimonial-slider { position: relative; overflow: hidden; border: 1px solid var(--border-color); border-radius: 8px; }
 .testimonial-slide {
     display: none; 
     background: var(--bg-white);
     width: 100%;
+    /* ИСПРАВЛЕНО: Плавность */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
 }
-.testimonial-slide.active {
+.testimonial-slide.active { 
     display: flex; 
+    opacity: 1;
 }
-.testimonial-quote {
-    flex: 2;
-    padding: 30px; 
-}
-.testimonial-quote blockquote {
-    font-size: 1.3rem; 
-    font-weight: 500;
-    margin: 0 0 20px 0;
-    line-height: 1.4;
-}
-.author-name {
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-.author-title {
-    color: var(--text-light-gray);
-    margin: 0 0 20px 0;
-}
+.testimonial-quote { flex: 2; padding: 30px; }
+.testimonial-quote blockquote { font-size: 1.3rem; font-weight: 500; margin: 0 0 20px 0; line-height: 1.4; }
+.author-name { font-weight: 700; margin-bottom: 5px; }
 .testimonial-stat {
     flex: 1;
-    background: var(--primary-color); /* Статистика - зеленая */
+    background: var(--primary-color); 
     color: white;
     padding: 30px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.stat-number {
-    font-size: 2.5rem; 
-    font-weight: 700;
-    margin: 0;
-}
-.stat-text {
-    font-size: 1.1rem; 
-    margin: 10px 0;
-}
-/* НОВОЕ: Стили для точек карусели */
+.stat-number { font-size: 2.5rem; font-weight: 700; margin: 0; }
+.stat-text { font-size: 1.1rem; margin: 10px 0; }
 .carousel-dots {
     position: absolute;
     bottom: 20px;
@@ -401,24 +249,13 @@ img {
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-.dot:hover {
-    background-color: var(--text-light-gray);
-}
-.dot.active {
-    background-color: var(--primary-color); /* Активная точка - зеленая */
-}
+.dot:hover { background-color: var(--text-light-gray); }
+.dot.active { background-color: var(--primary-color); }
 
 
-/* --- 6. Социальное доказательство (v6.0 - Иконки) --- */
-.social-proof {
-    padding: 30px 0; 
-    text-align: center;
-    background: var(--bg-gray-medium);
-}
-.social-proof p {
-    font-size: 1.0rem; 
-    color: var(--text-light-gray);
-}
+/* --- 6. Социальное доказательство (Иконки) --- */
+.social-proof { padding: 30px 0; text-align: center; background: var(--bg-gray-medium); }
+.social-proof p { font-size: 1.0rem; color: var(--text-light-gray); }
 .logos {
     display: flex;
     justify-content: space-around;
@@ -427,38 +264,17 @@ img {
     gap: 30px;
     margin-top: 30px; 
 }
-/* НОВОЕ: Стили для иконок брендов */
-.logos .fab {
-    font-size: 2.5rem; /* Крупные иконки */
-    color: var(--text-light-gray);
-    transition: color 0.2s ease;
-}
-.logos .fab:hover {
-    color: var(--text-dark); /* Темнее при наведении */
-}
+.logos .fab { font-size: 2.5rem; color: var(--text-light-gray); transition: color 0.2s ease; }
+.logos .fab:hover { color: var(--text-dark); }
 
 
-/* --- 7. Финальный CTA (v6.0) --- */
-.final-cta {
-    padding: 40px 0; 
-    text-align: center;
-}
-.final-cta .cta-form {
-    max-width: 500px;
-    margin: 20px auto;
-    justify-content: center;
-}
-.legal-text {
-    font-size: 0.8rem;
-    color: var(--text-light-gray);
-}
+/* --- 7. Финальный CTA --- */
+.final-cta { padding: 40px 0; text-align: center; }
+.final-cta .cta-form { max-width: 500px; margin: 20px auto; justify-content: center; }
+.legal-text { font-size: 0.8rem; color: var(--text-light-gray); }
 
-/* --- 8. Футер (v6.0 - Зеленый) --- */
-.main-footer {
-    background: var(--primary-color-dark); /* Темно-зеленый */
-    color: #e7f7ed; /* Очень светлый зеленый */
-    padding: 30px 0 20px 0; 
-}
+/* --- 8. Футер --- */
+.main-footer { background: var(--primary-color-dark); color: var(--primary-color-light); padding: 30px 0 20px 0; }
 .footer-container {
     display: flex;
     justify-content: space-between;
@@ -466,30 +282,19 @@ img {
     flex-wrap: wrap;
     margin-bottom: 20px;
 }
-.footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px; 
-}
-.footer-col h3 {
-    color: var(--bg-white);
-    font-size: 1rem;
-    margin-bottom: 5px;
-}
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col h3 { color: var(--bg-white); font-size: 1rem; margin-bottom: 5px; }
 .footer-col a, .footer-bottom a {
-    color: #e7f7ed;
+    color: var(--primary-color-light);
     font-size: 0.9rem;
     transition: color 0.2s ease, text-decoration 0.2s ease;
 }
-.footer-col a:hover, .footer-bottom a:hover {
-    color: var(--bg-white); 
-    text-decoration: underline;
-}
+.footer-col a:hover, .footer-bottom a:hover { color: var(--bg-white); text-decoration: underline; }
 .footer-bottom {
-    border-top: 1px solid #378a5b; /* Зеленый разделитель */
+    border-top: 1px solid #344563;
     padding-top: 20px;
     display: flex;
     gap: 15px;
     font-size: 0.9rem;
-    color: #e7f7ed;
+    color: var(--primary-color-light);
 }
