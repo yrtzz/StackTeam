@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krello - Наш клон Trello</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Krello - Управление проектами</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -16,30 +16,40 @@
 
     <header class="main-header">
         <div class="container nav-container">
-            <div class="logo">
-                <h2>Krello</h2>
-            </div>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <h2>Krello</h2>
+                </div>
+            </a>
             <nav class="main-nav">
                 <ul>
                     <li class="nav-item has-dropdown">
                         <a href="#">Функции</a>
                         <div class="dropdown-menu">
-                            <div class="dropdown-content features-dropdown">
-                                <div class="dropdown-main">
-                                    <h4>Изучите функции</h4>
-                                    <div class="grid-col-3">
-                                        <a href="#"><i class="fas fa-inbox"></i> <b>Inbox</b><p>Собирайте важные детали...</p></a>
-                                        <a href="#"><i class="fas fa-calendar-alt"></i> <b>Planner</b><p>Синхронизируйте календарь...</p></a>
-                                        <a href="#"><i class="fas fa-robot"></i> <b>Автоматизация</b><p>Автоматизируйте задачи...</p></a>
-                                        <a href="#"><i class="fas fa-rocket"></i> <b>Power-Ups</b><p>Усильте свои команды...</p></a>
-                                        <a href="#"><i class="fas fa-clone"></i> <b>Шаблоны</b><p>Дайте команде готовый план...</p></a>
-                                        <a href="#"><i class="fas fa-puzzle-piece"></i> <b>Интеграции</b><p>Найдите приложения, которые...</p></a>
-                                    </div>
+                            <div class="dropdown-content grid-col-3">
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-inbox"></i> Inbox</h3>
+                                    <p>Собирайте важные детали из email, Slack и других источников.</p>
                                 </div>
-                                <div class="dropdown-sidebar">
-                                    <h4>Знакомьтесь, Krello</h4>
-                                    <p>Krello помогает вашей команде легко выполнять работу...</p>
-                                    <a href="#" class="btn btn-secondary">Узнать о Krello</a>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-calendar-alt"></i> Planner</h3>
+                                    <p>Синхронизируйте календарь и планируйте задачи.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-robot"></i> Автоматизация</h3>
+                                    <p>Автоматизируйте рутинные задачи и рабочие процессы.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-rocket"></i> Power-Ups</h3>
+                                    <p>Усильте свои команды, подключив нужные плагины.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-clone"></i> Шаблоны</h3>
+                                    <p>Дайте команде готовый план для любого проекта.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-puzzle-piece"></i> Интеграции</h3>
+                                    <p>Найдите приложения, которые вы уже используете.</p>
                                 </div>
                             </div>
                         </div>
@@ -47,51 +57,88 @@
                     <li class="nav-item has-dropdown">
                         <a href="#">Решения</a>
                          <div class="dropdown-menu">
-                             <div class="dropdown-content solutions-dropdown">
-                                <div class="dropdown-main">
-                                    <h4>Используйте готовые сценарии Krello для любых команд...</h4>
-                                    <div class="grid-col-3">
-                                        <a href="#"><i class="fas fa-bullhorn"></i> <b>Команды маркетинга</b></a>
-                                        <a href="#"><i class="fas fa-tasks"></i> <b>Продакт-менеджмент</b></a>
-                                        <a href="#"><i class="fas fa-code"></i> <b>Инженерные команды</b></a>
-                                        <a href="#"><i class="fas fa-paint-brush"></i> <b>Дизайн-команды</b></a>
-                                        <a href="#"><i class="fas fa-lightbulb"></i> <b>Стартапы</b></a>
-                                        <a href="#"><i class="fas fa-users"></i> <b>Удаленные команды</b></a>
-                                    </div>
+                             <div class="dropdown-content grid-col-3">
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-bullhorn"></i> Команды маркетинга</h3>
+                                    <p>Планируйте кампании и управляйте контентом.</p>
                                 </div>
-                                <div class="dropdown-sidebar">
-                                    <h4>Наш продукт в действии</h4>
-                                    <a href="#"><b>Пример: Управление задачами</b></a>
-                                    <a href="#"><b>Пример: База знаний</b></a>
-                                    <a href="#"><b>Пример: Управление проектом</b></a>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-tasks"></i> Продакт-менеджмент</h3>
+                                    <p>Создавайте дорожные карты и отслеживайте спринты.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-code"></i> Инженерные команды</h3>
+                                    <p>Управляйте релизами и исправляйте баги.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-paint-brush"></i> Дизайн-команды</h3>
+                                    <p>Организуйте креативный процесс и фидбэк.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-lightbulb"></i> Стартапы</h3>
+                                    <p>От идеи до IPO, управляйте ростом.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-users"></i> Удаленные команды</h3>
+                                    <p>Оставайтесь на связи, где бы вы ни были.</p>
                                 </div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item has-dropdown">
-                        <a href="#">Планы</a>
-                         <div class="dropdown-menu">
-                             <div class="dropdown-content plans-dropdown">
-                                <div class="dropdown-main">
-                                     <div class="grid-col-3">
-                                        <a href="#"><i class="fas fa-user-friends"></i> <b>Standard</b><p>Для команд, которым нужно...</p></a>
-                                        <a href="#"><i class="fas fa-star"></i> <b>Premium</b><p>Лучше всего для команд до 100...</p></a>
-                                        <a href="#"><i class="fas fa-building"></i> <b>Enterprise</b><p>Все, что нужно вашим...</p></a>
-                                    </div>
-                                    <div class="free-plan-promo">
-                                        <a href="#"><i class="fas fa-check-circle"></i> <b>Free plan</b><p>Для отдельных лиц или малых...</p></a>
-                                        <a href="#" class="btn btn-secondary">Пройти тур по Krello</a>
-                                    </div>
+                        <a href="pricing.html">Планы</a>
+                         <div class="dropdown-menu dropdown-small">
+                             <div class="dropdown-content grid-col-2">
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-user-friends"></i> Standard</h3>
+                                    <p>Для команд, которым нужно управлять работой.</p>
                                 </div>
-                                <div class="dropdown-sidebar">
-                                    <h4>Сравнить планы и цены</h4>
-                                    <p>Неважно, 2 у вас человека или 2000...</p>
-                                    <a href="#" class="btn btn-secondary">Смотреть цены Krello</a>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-star"></i> Premium</h3>
+                                    <p>Для команд до 100 человек и трекинга проектов.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-building"></i> Enterprise</h3>
+                                    <p>Все, что нужно вашей организации для успеха.</p>
+                                </div>
+                                <div class="nav-group">
+                                    <h3><i class="fas fa-check-circle"></i> Free plan</h3>
+                                    <p>Для отдельных лиц или малых команд.</p>
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a href="#">Ресурсы</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#">Ресурсы</a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-content grid-col-3">
+                               <a href="guide.html" class="nav-group-link">
+                                   <h3><i class="fas fa-book-open"></i> Krello гайд</h3>
+                                   <p>Наше руководство для начала работы.</p>
+                               </a>
+                               <a href="guide.html" class="nav-group-link">
+                                   <h3><i class="fas fa-laptop-house"></i> Удаленная работа</h3>
+                                   <p>Советы по организации удаленных команд.</p>
+                               </a>
+                               <a href="guide.html" class="nav-group-link">
+                                   <h3><i class="fas fa-chalkboard-teacher"></i> Вебинары</h3>
+                                   <p>Смотрите бесплатные вебинары по продуктивности.</p>
+                               </a>
+                               <a href="guide.html" class="nav-group-link">
+                                   <h3><i class="fas fa-user-tie"></i> Истории клиентов</h3>
+                                   <p>Как другие компании используют Krello.</p>
+                               </a>
+                               <a href="guide.html" class="nav-group-link">
+                                   <h3><i class="fas fa-cogs"></i> Для разработчиков</h3>
+                                   <p>Используйте наш API и Power-Ups.</p>
+                               </a>
+                               <a href="support.html" class="nav-group-link">
+                                   <h3><i class="fas fa-question-circle"></i> Помощь</h3>
+                                   <p>Нужна помощь? Статьи и FAQ.</p>
+                               </a>
+                           </div>
+                       </div>
+                    </li>
                 </ul>
             </nav>
             <div class="auth-buttons">
@@ -113,36 +160,39 @@
                     </form>
                 </div>
                 <div class="hero-image">
-                    <img src="hero-mockup.png" alt="Krello app mockup">
+                    <img src="images/hero-mockup.png" alt="Krello app mockup">
                 </div>
             </div>
         </section>
 
         <section class="features-interactive">
-            <div class="container">
-                <h2>Ваша электростанция продуктивности</h2>
-                <p class="section-subtitle">Оставайтесь организованным и эффективным с Inbox, Boards и Planner.</p>
-                
-                <div class="features-content">
-                    <div class="features-list">
-                        <div class="feature-item" data-tab="inbox">
-                            <h3><i class="fas fa-inbox"></i> Inbox</h3>
-                            <p>Когда это у вас на уме, это попадает в Inbox...</p>
+            <div class="container features-container">
+                <div class="features-text-content">
+                    <h2>Ваша электростанция продуктивности</h2>
+                    <p class="section-subtitle-left">
+                        Оставайтесь организованным и эффективным с Inbox, Boards и Planner.
+                    </p>
+                    
+                    <div class="feature-tab-links">
+                        <div class="feature-tab-link active" data-tab="inbox">
+                            <h3>Inbox</h3>
+                            <p>Когда это у вас на уме, это попадает в Inbox. Захватывайте задачи отовсюду.</p>
                         </div>
-                        <div class="feature-item active" data-tab="boards">
-                            <h3><i class="fas fa-columns"></i> Boards</h3>
-                            <p>Ваш список дел может быть длинным, но он управляем!</p>
+                        <div class="feature-tab-link" data-tab="boards">
+                            <h3>Boards</h3>
+                            <p>Ваш список дел может быть длинным, но он управляем! Держите все под контролем.</p>
                         </div>
-                        <div class="feature-item" data-tab="planner">
-                            <h3><i class="fas fa-calendar-alt"></i> Planner</h3>
+                        <div class="feature-tab-link" data-tab="planner">
+                            <h3>Planner</h3>
                             <p>Перетаскивайте, бросайте, готово. Переносите задачи в календарь.</p>
                         </div>
                     </div>
-                    <div class="features-image">
-                        <img src="inbox-demo.png" alt="Krello Inbox" id="tab-inbox-img" class="feature-tab-image">
-                        <img src="boards-demo.png" alt="Krello Boards" id="tab-boards-img" class="feature-tab-image active">
-                        <img src="planner-demo.png" alt="Krello Planner" id="tab-planner-img" class="feature-tab-image">
-                    </div>
+                </div>
+                
+                <div class="features-image-content">
+                    <img src="images/inbox-demo.png" alt="Krello Inbox" id="tab-inbox-img" class="feature-tab-image active">
+                    <img src="images/boards-demo.png" alt="Krello Boards" id="tab-boards-img" class="feature-tab-image">
+                    <img src="images/planner-demo.png" alt="Krello Planner" id="tab-planner-img" class="feature-tab-image">
                 </div>
             </div>
         </section>
@@ -154,7 +204,7 @@
                 
                 <div class="integration-card">
                     <div class="integration-image">
-                        <img src="email-to-task.png" alt="Email integration">
+                        <img src="images/email-to-task.png" alt="Email integration">
                     </div>
                     <div class="integration-text">
                         <h3>EMAIL MAGIC</h3>
@@ -164,7 +214,7 @@
 
                 <div class="integration-card reverse">
                     <div class="integration-image">
-                        <img src="chat-to-task.png" alt="Chat integration">
+                        <img src="images/chat-to-task.png" alt="Chat integration">
                     </div>
                     <div class="integration-text">
                         <h3>MESSAGE APP SORCERY</h3>
@@ -177,61 +227,53 @@
         <section class="testimonials">
             <div class="container">
                 <div class="testimonial-slider">
-                    
                     <div class="testimonial-slide active" data-slide="1">
                         <div class="testimonial-quote">
                             <blockquote>
                                 "[Krello] отлично подходит для упрощения сложных процессов..."
                             </blockquote>
                             <p class="author-name">Джои Розенберг</p>
-                            <p class="author-title">Global Leadership Director at Women Who Code</p>
                         </div>
                         <div class="testimonial-stat">
                             <p class="stat-number">75%</p>
                             <p class="stat-text">
-                                организаций сообщают, что Krello приносит пользу их бизнесу в течение 30 дней.
+                                организаций сообщают, что Krello приносит пользу их бизнесу.
                             </p>
                         </div>
                     </div>
-
                     <div class="testimonial-slide" data-slide="2">
                         <div class="testimonial-quote">
                             <blockquote>
-                                "Мы использовали Krello для обеспечения ясности шагов, требований и процедур..."
+                                "Мы использовали Krello для обеспечения ясности шагов, требований и процедур."
                             </blockquote>
                             <p class="author-name">Джефферсон Скомакао</p>
-                            <p class="author-title">Development Manager at IKEA/PTC</p>
                         </div>
                         <div class="testimonial-stat">
                             <p class="stat-number">74%</p>
                             <p class="stat-text">
-                                клиентов говорят, что Krello улучшило общение с их коллегами и командами.
+                                клиентов говорят, что Krello улучшило общение.
                             </D>
                         </div>
                     </div>
-
                     <div class="testimonial-slide" data-slide="3">
                         <div class="testimonial-quote">
                             <blockquote>
-                                "Будь кто-то в офисе, работая из дома или на месте с клиентом, каждый может..."
+                                "Каждый может делиться контекстом и информацией через Krello."
                             </blockquote>
                             <p class="author-name">Сумит Моге</p>
-                            <p class="author-title">Product Manager at ThoughtWorks</p>
                         </div>
                         <div class="testimonial-stat">
                             <p class="stat-number">81%</p>
                             <p class="stat-text">
-                                клиентов выбрали Trello за простоту использования.
+                                клиентов выбрали Krello за простоту использования.
                             </p>
                         </div>
                     </div>
-
                     <div class="carousel-dots">
                         <span class="dot active" data-slide="1"></span>
                         <span class="dot" data-slide="2"></span>
                         <span class="dot" data-slide="3"></span>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -240,9 +282,7 @@
             <div class="container">
                 <p>Нам доверяют команды из тысяч компаний по всему миру</p>
                 <div class="logos">
-                    <i class="fab fa-visa"></i>
-                    <i class="fab fa-github"></i>
-                    <i class="fab fa-zoom"></i>
+                    <i class="fab fa-paypal"></i>
                     <i class="fab fa-slack"></i>
                     <i class="fab fa-fedex"></i>
                     <i class="fab fa-dropbox"></i>
@@ -265,26 +305,28 @@
     <footer class="main-footer">
         <div class="container footer-container">
             <div class="footer-col">
-                <div class="logo">
-                     <h2>Krello</h2>
-                </div>
+                <a href="index.html" class="logo-link">
+                    <div class="logo">
+                         <h2>Krello</h2>
+                    </div>
+                </a>
                 <a href="signup.html">Войти</a>
             </div>
             <div class="footer-col">
                 <h3>О Krello</h3>
-                <a href="#">Что за досками</a>
+                <a href="about.html">О нас</a>
             </div>
             <div class="footer-col">
                 <h3>Вакансии</h3>
-                <a href="#">Открытые роли</a>
+                <a href="jobs.html">Открытые роли</a>
             </div>
             <div class="footer-col">
                 <h3>Приложения</h3>
-                <a href="#">Скачать приложение</a>
+                <a href="apps.html">Скачать приложение</a>
             </div>
             <div class="footer-col">
                 <h3>Связаться с нами</h3>
-                <a href="#">Нужна помощь?</a>
+                <a href="support.html">Нужна помощь?</a>
             </div>
         </div>
         <div class="container footer-bottom">
@@ -296,63 +338,63 @@
 
 
     <script>
-        // Ждем, пока загрузится вся HTML-структура
         document.addEventListener('DOMContentLoaded', function() {
 
-            // --- ЛОГИКА 1: Навигация по клику ---
+            // --- ЛОГИКА 1: Навигация (Click-Only) ---
             const navItems = document.querySelectorAll('.nav-item.has-dropdown');
-            
-            navItems.forEach(item => {
-                // Используем 'click', а не 'mousedown', чтобы было надежнее
-                item.addEventListener('click', function(event) {
-                    // Находим меню, на которое кликнули
-                    const clickedMenu = this.querySelector('.dropdown-menu');
-                    
-                    // Проверяем, было ли оно уже открыто
-                    const wasOpen = clickedMenu.classList.contains('is-open');
-                    
-                    // Сначала закрываем ВСЕ меню
-                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                        menu.classList.remove('is-open');
-                    });
 
-                    // Если оно не было открыто, открываем его
-                    if (!wasOpen) {
-                        clickedMenu.classList.add('is-open');
+            function closeAllMenus() {
+                navItems.forEach(item => {
+                    // .is-open отвечает за показ
+                    // .is-locked отвечает за "замок" по клику
+                    item.classList.remove('is-open', 'is-locked');
+                });
+            }
+
+            navItems.forEach(item => {
+                const link = item.querySelector('a'); // Находим ссылку
+                
+                // "Запираем" по CLICK
+                link.addEventListener('click', function(event) {
+                    // Если у этого меню ЕСТЬ выпадающий список
+                    if (item.classList.contains('has-dropdown')) {
+                        event.preventDefault(); // Запрещаем переход по ссылке (напр. #)
+                        event.stopPropagation(); // Останавливаем клик
+                        
+                        const wasLocked = item.classList.contains('is-locked');
+                        
+                        // Сначала все закрываем
+                        closeAllMenus();
+                        
+                        // Если он не был заперт, запираем его
+                        if (!wasLocked) {
+                            item.classList.add('is-open', 'is-locked');
+                        }
+                        // (Если он уже был заперт, то closeAllMenus() его закроет)
                     }
-                    
-                    // Останавливаем "всплытие" клика, чтобы он не закрыл сам себя
-                    event.stopPropagation();
+                    // Если у меню НЕТ выпадающего списка (напр. "Планы"),
+                    // то event.preventDefault() не сработает и ссылка (на pricing.html) сработает.
                 });
             });
 
             // Закрываем меню, если кликнули ВНЕ его
             document.addEventListener('click', function() {
-                document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                    menu.classList.remove('is-open');
-                });
+                closeAllMenus();
             });
 
-
             // --- ЛОГИКА 2: Табы "Электростанции" ---
-            const featureItems = document.querySelectorAll('.feature-item');
+            const featureTabLinks = document.querySelectorAll('.feature-tab-link');
             
-            featureItems.forEach(item => {
-                item.addEventListener('click', function() {
+            featureTabLinks.forEach(link => {
+                link.addEventListener('click', function() {
                     const tabId = this.getAttribute('data-tab');
-                    
-                    // 1. Убираем .active у всех кнопок
-                    featureItems.forEach(btn => btn.classList.remove('active'));
-                    // 2. Добавляем .active нажатой кнопке
+                    featureTabLinks.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // 3. Убираем .active у всех картинок
                     document.querySelectorAll('.feature-tab-image').forEach(img => {
                         img.classList.remove('active');
                     });
                     
-                    // 4. Добавляем .active нужной картинке
-                    // (Проверка, что элемент существует, прежде чем добавить класс)
                     const targetImage = document.querySelector('#tab-' + tabId + '-img');
                     if (targetImage) {
                         targetImage.classList.add('active');
@@ -367,18 +409,13 @@
             dots.forEach(dot => {
                 dot.addEventListener('click', function() {
                     const slideId = this.getAttribute('data-slide');
-                    
-                    // 1. Убираем .active у всех точек
                     dots.forEach(d => d.classList.remove('active'));
-                    // 2. Добавляем .active нажатой точке
                     this.classList.add('active');
                     
-                    // 3. Убираем .active у всех слайдов
                     document.querySelectorAll('.testimonial-slide').forEach(slide => {
                         slide.classList.remove('active');
                     });
                     
-                    // 4. Добавляем .active нужному слайду
                     const targetSlide = document.querySelector('.testimonial-slide[data-slide="' + slideId + '"]');
                     if(targetSlide) {
                          targetSlide.classList.add('active');
@@ -388,5 +425,6 @@
 
         });
     </script>
-    </body>
+
+</body>
 </html>
