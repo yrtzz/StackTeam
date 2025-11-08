@@ -1,6 +1,5 @@
-// app.js
-// Импортируем функции работы с Firestore (скрипт должен грузиться ПОСЛЕ firebase.js и firestore.js)
-import { loadBoardState, saveBoardState } from "./scripts/firestore.js";
+
+import { loadBoardState, saveBoardState } from "/firestore.js";
 
 (() => {
   /* ---------------------
