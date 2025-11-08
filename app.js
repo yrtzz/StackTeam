@@ -1,3 +1,7 @@
+// app.js
+// Импортируем функции работы с Firestore (скрипт должен грузиться ПОСЛЕ firebase.js и firestore.js)
+import { loadBoardState, saveBoardState } from "./scripts/firestore.js";
+
 (() => {
   /* ---------------------
      Configuration / Keys
@@ -36,16 +40,18 @@
   const uid = (prefix = 'id') => `${prefix}_${Date.now().toString(36)}_${Math.floor(Math.random() * 10000)}`;
 
   /* ---------------------
-     Persistence
+     Persistence (Local + Firestore)
      --------------------- */
-  function save() {
+
+  // Локальный бэкап: быстро и оффлайн
+  function saveLocal() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch (e) {
-      console.error('Failed to save data', e);
+      console.error('Failed to save local data', e);
     }
   }
-  function load() {
+  function loadLocal() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return false;
@@ -56,9 +62,46 @@
       }
       return false;
     } catch (e) {
-      console.error('Failed to load data', e);
+      console.error('Failed to load local data', e);
       return false;
     }
+  }
+
+  // Дебаунс удалённого сохранения, чтобы не спамить сеть
+  let saveRemoteTimer = null;
+  function saveRemoteDebounced(delay = 600) {
+    if (saveRemoteTimer) clearTimeout(saveRemoteTimer);
+    saveRemoteTimer = setTimeout(async () => {
+      try {
+        await saveBoardState(data); // сохраняем весь state в один документ
+        // console.log('☁️ state saved to Firestore');
+      } catch (e) {
+        console.error('Failed to save to Firestore', e);
+      }
+    }, delay);
+  }
+
+  // Единая точка сохранения: всё, что вызывало save(), теперь пишет локально + в облако
+  function save() {
+    saveLocal();
+    saveRemoteDebounced();
+  }
+
+  // Загрузка: сначала пробуем Firestore, если не получилось — локалка
+  async function load() {
+    try {
+      const remote = await loadBoardState();
+      if (remote && Array.isArray(remote.desks)) {
+        data = {
+          desks: remote.desks || [],
+          activeDeskId: remote.activeDeskId || null
+        };
+        return true;
+      }
+    } catch (e) {
+      console.warn('Failed to load from Firestore, fallback to local', e);
+    }
+    return loadLocal();
   }
 
   /* ---------------------
@@ -72,6 +115,17 @@
     save();
     renderDeskSwitcher();
     renderBoard();
+  }
+  function getDeskById(deskId) {
+    return data.desks.find(d => d.id === deskId);
+  }
+  function getColumn(deskId, colId) {
+    const desk = getDeskById(deskId);
+    return desk ? desk.columns.find(c => c.id === colId) : null;
+  }
+  function getCard(deskId, colId, cardId) {
+    const col = getColumn(deskId, colId);
+    return col ? col.cards.find(k => k.id === cardId) : null;
   }
 
   /* ---------------------
@@ -160,21 +214,6 @@
     if (!modal) return;
     modal.style.display = 'none';
     modalContext = null;
-  }
-
-  /* ---------------------
-     Data helpers
-     --------------------- */
-  function getDeskById(deskId) {
-    return data.desks.find(d => d.id === deskId);
-  }
-  function getColumn(deskId, colId) {
-    const desk = getDeskById(deskId);
-    return desk ? desk.columns.find(c => c.id === colId) : null;
-  }
-  function getCard(deskId, colId, cardId) {
-    const col = getColumn(deskId, colId);
-    return col ? col.cards.find(k => k.id === cardId) : null;
   }
 
   /* ---------------------
@@ -386,8 +425,9 @@
     }, 10);
   }
 
+  // общий закрыватель всех контекстов
   function closeAllContextMenus() {
-    document.querySelectorAll('.desk-context').forEach(el => el.remove());
+    document.querySelectorAll('.col-context, .desk-context').forEach(el => el.remove());
   }
 
   // Build board columns and cards
@@ -494,8 +534,6 @@
       if (!cardId) return;
       // determine insertion index
       const children = Array.from(cardsWrap.querySelectorAll('.card'));
-      const insertIndex = children.findIndex(ch => ch.dataset.cardId === cardId);
-      // If dragging within same desk/col and we already moved DOM, compute index by position:
       const afterEl = getDragAfterElement(cardsWrap, e.clientY);
       let idx = children.length;
       if (afterEl) idx = children.indexOf(afterEl);
@@ -565,8 +603,18 @@
     setTimeout(() => document.addEventListener('click', closeAllContextMenus, { once: true }), 10);
   }
 
-  function closeAllContextMenus() {
-    document.querySelectorAll('.col-context, .desk-context').forEach(el => el.remove());
+  // utility to get the element after which to insert while dragging
+  function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
+    return draggableElements.reduce((closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
   }
 
   /* ---------------------
@@ -696,24 +744,10 @@
       document.querySelectorAll('.card-dropdown').forEach(d => d.style.display = 'none');
     });
 
-    // click on card opens edit
+    // dblclick to edit
     wrapper.addEventListener('dblclick', () => showModal(deskId, colId, card.id));
 
     return wrapper;
-  }
-
-  // utility to get the element after which to insert while dragging
-  function getDragAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
-    return draggableElements.reduce((closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = y - box.top - box.height / 2;
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
-      } else {
-        return closest;
-      }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
   }
 
   /* ---------------------
@@ -763,7 +797,7 @@
   }
 
   /* ---------------------
-     Event wiring & shortcuts
+     Global events & shortcuts
      --------------------- */
   function wireGlobalEvents() {
     // close dropdowns on click outside
@@ -824,15 +858,14 @@
   /* ---------------------
      Init
      --------------------- */
-  function init() {
-    const ok = load();
+  async function init() {
+    const ok = await load();     // ждём Firestore/локалку
     if (!ok) {
       data = { desks: [], activeDeskId: null };
     }
     seedIfEmpty();
     wireGlobalEvents();
     renderDeskSwitcher();
-    // ensure activeDeskId is valid
     if (!data.activeDeskId && data.desks.length) data.activeDeskId = data.desks[0].id;
     renderBoard();
   }
@@ -843,7 +876,7 @@
      Expose some helpers for debugging in console
      --------------------- */
   window.__krello_app = {
-    data,
+    get data() { return data; },
     save,
     createDesk,
     deleteDesk,
