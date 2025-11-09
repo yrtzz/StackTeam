@@ -1,19 +1,22 @@
-import { setData } from './core/state.js';
-import { loadData } from './storage/repository.js';
-import { createDesk } from './features/board.js';
+import { subscribeAuth } from './core/auth.js';
+import { setUser, setData } from './core/state.js';
+import { repositorySetUser, loadData } from './storage/repository.js';
 import { renderHeader } from './ui/header.js';
 import { renderColumns } from './ui/columns.js';
 
-async function init(){
-  const loaded = await loadData();
-  setData(loaded ?? { desks: [], activeDeskId: null });
-  // seed if empty
-  const { desks, activeDeskId } = loaded ?? {};
-  if(!desks?.length){
-    const d = createDesk('Main Desk'); // внутри сохранит и активирует
-    // можно здесь добавить стартовые колонки/карточки, если нужно
-  }
-  renderHeader(); 
+async function handleAuthChange(fbUser) {
+  setUser(fbUser ? { uid: fbUser.uid, email: fbUser.email, displayName: fbUser.displayName } : null);
+  repositorySetUser(fbUser?.uid || null);
+  const data = await loadData();
+  setData(data);
+  renderHeader();
   renderColumns();
 }
-init();
+
+async function boot() {
+  renderHeader();
+  renderColumns();
+  subscribeAuth(handleAuthChange);
+}
+
+boot();

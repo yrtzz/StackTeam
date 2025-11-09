@@ -1,68 +1,25 @@
-import { getData } from "../core/state.js";
-import { createDesk, setActiveDesk } from "../features/board.js";
-import { renderColumns } from "./columns.js";
+import { getUser } from '../core/state.js';
+import { signIn, signOut } from '../core/auth.js';
 
 export function renderHeader() {
-  const deskSwitcherEl = document.querySelector(".desk-switcher");
-  const headerCenter = document.querySelector(".header-center");
+  const root = document.querySelector('#header');
+  if (!root) return;
+  const user = getUser();
 
-  if (!deskSwitcherEl) {
-    const newEl = document.createElement("div");
-    newEl.className = "desk-switcher";
-    headerCenter?.prepend(newEl);
-  }
-
-  updateDeskSwitcher();
+  root.innerHTML = `
+    <div class="header-inner">
+      <div class="left"><h1>StackTeam</h1></div>
+      <div class="center"><div id="boards-switcher"></div></div>
+      <div class="right">
+        ${
+          user
+            ? `<span class="user-email">${user.email ?? user.displayName ?? 'Signed in'}</span>
+               <button id="btnSignOut">Выйти</button>`
+            : `<button id="btnSignIn">Войти с Google</button>`
+        }
+      </div>
+    </div>
+  `;
+  root.querySelector('#btnSignIn')?.addEventListener('click', () => signIn());
+  root.querySelector('#btnSignOut')?.addEventListener('click', () => signOut());
 }
-
-export function updateDeskSwitcher() {
-  const deskSwitcherEl = document.querySelector(".desk-switcher");
-  const { desks, activeDeskId } = getData();
-
-  deskSwitcherEl.innerHTML = "";
-  deskSwitcherEl.style.display = "flex";
-  deskSwitcherEl.style.gap = "8px";
-  deskSwitcherEl.style.alignItems = "center";
-
-  desks.forEach((desk) => {
-    const btn = document.createElement("button");
-    btn.className = "desk-switch-btn";
-    btn.textContent = desk.title;
-    btn.style.padding = "6px 10px";
-    btn.style.borderRadius = "6px";
-    btn.style.border =
-      desk.id === activeDeskId
-        ? "transparent"
-        : "1px solid rgba(255,255,255,0.06)";
-    btn.style.background = "#cbd5e1";
-    btn.style.color = "#0052CC";
-    btn.style.cursor = "pointer";
-
-    btn.addEventListener("click", () => {
-      setActiveDesk(desk.id);
-      updateDeskSwitcher();
-      renderColumns();
-    });
-
-    deskSwitcherEl.appendChild(btn);
-  });
-
-  const addBtn = document.createElement("button");
-  addBtn.className = "desk-add-btn";
-  addBtn.textContent = "Новая доска";
-  addBtn.style.padding = "10px 16px";
-  addBtn.style.borderRadius = "6px";
-  addBtn.style.background = "#0052CC";
-  addBtn.style.color = "#fff";
-  addBtn.style.border = "transparent";
-  addBtn.style.cursor = "pointer";
-  addBtn.addEventListener("click", () => {
-    const name = prompt("Название новой доски:", "Новая доска");
-    if (!name) return;
-    createDesk(name.trim());
-    updateDeskSwitcher();
-    renderColumns();
-  });
-
-  deskSwitcherEl.appendChild(addBtn);
-}               
