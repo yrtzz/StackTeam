@@ -1,14 +1,14 @@
-
+// scripts/main.js
 import { subscribeAuth } from './core/auth.js';
 import { setUser, setData } from './core/state.js';
 import { repositorySetUser, loadData } from './storage/repository.js';
 import { renderHeader } from './ui/header.js';
 import { renderColumns } from './ui/columns.js';
-import { initAccountMenu } from './ui/accountmenu.js';
+import { renderAuthControls } from './ui/authControls.js';
 
 function mountHeader() {
   renderHeader();
-  initAccountMenu('[data-account], .account-icon, #accountIcon');
+  renderAuthControls();
 }
 
 async function handleAuthChange(fbUser) {

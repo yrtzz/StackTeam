@@ -12,7 +12,7 @@ import {
 
 await setPersistence(auth, browserLocalPersistence);
 
-// ?logout=1 — форс-разлогин для тестов
+// /signup.html?logout=1 — форс-выход для тестов
 const qs = new URLSearchParams(location.search);
 if (qs.get('logout') === '1') {
   try { await signOut(auth); } catch {}
@@ -34,7 +34,7 @@ if (googleLink) {
   });
 }
 
-// Email (одно поле, пароль "default" как заглушка)
+// Email (оставляем одно поле e-mail; пароль — заглушка 'default')
 const form = document.getElementById('form-signup-email');
 form?.addEventListener('submit', async (e) => {
   e.preventDefault();
