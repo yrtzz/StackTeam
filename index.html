@@ -142,7 +142,7 @@
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <a href="signup.html" class="btn btn-secondary">Войти</a>
+                <a href="login.html" class="btn btn-secondary">Войти</a>
                 <a href="signup.html" class="btn btn-primary">Получить Krello бесплатно</a>
             </div>
         </div>
@@ -230,42 +230,45 @@
                     <div class="testimonial-slide active" data-slide="1">
                         <div class="testimonial-quote">
                             <blockquote>
-                                "[Krello] отлично подходит для упрощения сложных процессов..."
+                                "Krello кардинально изменил способ работы нашей команды. Возможность интегрировать email и Slack напрямую в наш рабочий процесс сэкономила нам часы каждую неделю. Автоматизация повторяющихся задач — это просто находка!"
                             </blockquote>
                             <p class="author-name">Джои Розенберг</p>
+                            <p class="author-title" style="color: var(--text-light-gray); font-size: 0.9rem;">Head of Operations, TechStart Inc.</p>
                         </div>
                         <div class="testimonial-stat">
                             <p class="stat-number">75%</p>
                             <p class="stat-text">
-                                организаций сообщают, что Krello приносит пользу их бизнесу.
+                                организаций сообщают, что Krello значительно улучшил координацию между отделами и повысил прозрачность проектов.
                             </p>
                         </div>
                     </div>
                     <div class="testimonial-slide" data-slide="2">
                         <div class="testimonial-quote">
                             <blockquote>
-                                "Мы использовали Krello для обеспечения ясности шагов, требований и процедур."
+                                "Мы использовали Krello для управления запуском нового продукта. Визуальные доски помогли всей команде — от разработчиков до маркетологов — оставаться на одной волне. Особенно ценна возможность создавать шаблоны для повторяющихся процессов."
                             </blockquote>
                             <p class="author-name">Джефферсон Скомакао</p>
+                            <p class="author-title" style="color: var(--text-light-gray); font-size: 0.9rem;">Product Manager, Digital Solutions Ltd.</p>
                         </div>
                         <div class="testimonial-stat">
                             <p class="stat-number">74%</p>
                             <p class="stat-text">
-                                клиентов говорят, что Krello улучшило общение.
-                            </D>
+                                клиентов отмечают значительное улучшение коммуникации и снижение количества потерянных задач после внедрения Krello.
+                            </p>
                         </div>
                     </div>
                     <div class="testimonial-slide" data-slide="3">
                         <div class="testimonial-quote">
                             <blockquote>
-                                "Каждый может делиться контекстом и информацией через Krello."
+                                "В нашей удаленной команде из 50+ человек Krello стал центральным хабом для всех проектов. Интеграции с календарем и возможность прикреплять файлы прямо к карточкам экономят массу времени. Это больше чем просто список задач — это полноценная операционная система нашей компании."
                             </blockquote>
                             <p class="author-name">Сумит Моге</p>
+                            <p class="author-title" style="color: var(--text-light-gray); font-size: 0.9rem;">CTO, GlobalTech Solutions</p>
                         </div>
                         <div class="testimonial-stat">
                             <p class="stat-number">81%</p>
                             <p class="stat-text">
-                                клиентов выбрали Krello за простоту использования.
+                                пользователей выбрали Krello за интуитивный интерфейс и минимальное время обучения новых сотрудников.
                             </p>
                         </div>
                     </div>
@@ -282,10 +285,18 @@
             <div class="container">
                 <p>Нам доверяют команды из тысяч компаний по всему миру</p>
                 <div class="logos">
-                    <i class="fab fa-paypal"></i>
-                    <i class="fab fa-slack"></i>
-                    <i class="fab fa-fedex"></i>
-                    <i class="fab fa-dropbox"></i>
+                    <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-paypal"></i>
+                    </a>
+                    <a href="https://slack.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-slack"></i>
+                    </a>
+                    <a href="https://www.fedex.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-fedex"></i>
+                    </a>
+                    <a href="https://www.dropbox.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-dropbox"></i>
+                    </a>
                 </div>
             </div>
         </section>
@@ -310,7 +321,7 @@
                          <h2>Krello</h2>
                     </div>
                 </a>
-                <a href="signup.html">Войти</a>
+                <a href="login.html">Войти</a>
             </div>
             <div class="footer-col">
                 <h3>О Krello</h3>
@@ -405,21 +416,35 @@
 
             // --- ЛОГИКА 3: Карусель Отзывов ---
             const dots = document.querySelectorAll('.dot');
+            let currentSlide = 1;
+            const totalSlides = 3;
+            
+            function showSlide(slideNumber) {
+                dots.forEach(d => d.classList.remove('active'));
+                document.querySelectorAll('.testimonial-slide').forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                const activeDot = document.querySelector('.dot[data-slide="' + slideNumber + '"]');
+                const activeSlide = document.querySelector('.testimonial-slide[data-slide="' + slideNumber + '"]');
+                
+                if (activeDot) activeDot.classList.add('active');
+                if (activeSlide) activeSlide.classList.add('active');
+            }
+            
+            function nextSlide() {
+                currentSlide = currentSlide >= totalSlides ? 1 : currentSlide + 1;
+                showSlide(currentSlide);
+            }
+            
+            // Auto-rotate every 6 seconds
+            setInterval(nextSlide, 6000);
             
             dots.forEach(dot => {
                 dot.addEventListener('click', function() {
-                    const slideId = this.getAttribute('data-slide');
-                    dots.forEach(d => d.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    document.querySelectorAll('.testimonial-slide').forEach(slide => {
-                        slide.classList.remove('active');
-                    });
-                    
-                    const targetSlide = document.querySelector('.testimonial-slide[data-slide="' + slideId + '"]');
-                    if(targetSlide) {
-                         targetSlide.classList.add('active');
-                    }
+                    const slideId = parseInt(this.getAttribute('data-slide'));
+                    currentSlide = slideId;
+                    showSlide(slideId);
                 });
             });
 

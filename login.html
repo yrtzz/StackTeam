@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация - Krello</title>
+    <title>Вход - Krello</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ... (CSS для signup.html остается без изменений) ... */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: var(--bg-gray-light);
@@ -36,26 +35,26 @@
             top: -100px; right: -100px;
             filter: blur(50px);
         }
-        .signup-container { width: 100%; max-width: 450px; text-align: center; padding: 20px; }
-        .signup-header { margin-bottom: 25px; }
-        .signup-header .logo-link { text-decoration: none; }
-        .signup-header .logo h2 { font-size: 2.2rem; margin: 0; }
-        .signup-card {
+        .login-container { width: 100%; max-width: 450px; text-align: center; padding: 20px; }
+        .login-header { margin-bottom: 25px; }
+        .login-header .logo-link { text-decoration: none; }
+        .login-header .logo h2 { font-size: 2.2rem; margin: 0; }
+        .login-card {
             background: var(--bg-white);
             padding: 30px 40px;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-        .signup-card h1 { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-dark); }
-        #form-signup-email { display: flex; flex-direction: column; gap: 15px; }
-        #form-signup-email input {
+        .login-card h1 { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-dark); }
+        #form-login-email { display: flex; flex-direction: column; gap: 15px; }
+        #form-login-email input {
             padding: 12px;
             font-size: 1rem;
             border: 2px solid var(--border-color);
             border-radius: 5px;
         }
-        #form-signup-email input:focus { outline: none; border-color: var(--primary-color); }
-        #form-signup-email .btn-primary { padding: 12px; font-size: 1rem; font-weight: 700; }
+        #form-login-email input:focus { outline: none; border-color: var(--primary-color); }
+        #form-login-email .btn-primary { padding: 12px; font-size: 1rem; font-weight: 700; }
         .separator { font-size: 0.8rem; color: var(--text-light-gray); margin: 20px 0; }
         .social-login { display: flex; flex-direction: column; gap: 10px; }
         .btn-social {
@@ -84,56 +83,52 @@
         }
         .btn-social .fa-microsoft { color: #00A4EF; }
         .btn-social .fa-apple { color: #000000; }
-        .btn-social .fa-slack { color: #E01E5A; }
         .footer-separator { border: none; border-top: 1px solid var(--border-color); margin: 20px 0; }
-        .login-link { font-size: 0.9rem; }
-        .signup-footer { margin-top: 25px; display: flex; justify-content: center; gap: 20px; }
-        .signup-footer a { font-size: 0.8rem; color: var(--text-light-gray); }
-        .signup-footer a:hover { text-decoration: underline; }
+        .signup-link { font-size: 0.9rem; }
+        .login-footer { margin-top: 25px; display: flex; justify-content: center; gap: 20px; }
+        .login-footer a { font-size: 0.8rem; color: var(--text-light-gray); }
+        .login-footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>
-    <div class="signup-container">
-        <header class="signup-header">
+    <div class="login-container">
+        <header class="login-header">
             <a href="index.html" class="logo-link">
                 <div class="logo">
                     <h2>Krello</h2>
                 </div>
             </a>
         </header>
-        <main class="signup-content">
-            <div class="signup-card">
-                <h1>Присоединяйтесь к Krello</h1>
-                <form id="form-signup-email" action="app.html">
-                    <input type="text" placeholder="Ваше имя" required>
+        <main class="login-content">
+            <div class="login-card">
+                <h1>Войти в Krello</h1>
+                <form id="form-login-email" action="app.html">
                     <input type="email" placeholder="Введите ваш email" required>
-                    <input type="password" placeholder="Создайте пароль (минимум 8 символов)" required minlength="8">
-                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    <input type="password" placeholder="Введите пароль" required>
+                    <button type="submit" class="btn btn-primary">Войти</button>
                 </form>
                 <div class="separator">ИЛИ</div>
                 <div class="social-login">
                     <a href="app.html" class="btn-social">
-                        <i class="fab fa-google"></i> Продолжить с Google
+                        <i class="fab fa-google"></i> Войти через Google
                     </a>
                     <a href="app.html" class="btn-social">
-                        <i class="fab fa-microsoft"></i> Продолжить с Microsoft
+                        <i class="fab fa-microsoft"></i> Войти через Microsoft
                     </a>
                     <a href="app.html" class="btn-social">
-                        <i class="fab fa-apple"></i> Продолжить с Apple
+                        <i class="fab fa-apple"></i> Войти через Apple
                     </a>
                 </div>
                 <hr class="footer-separator">
-                <a href="login.html" class="login-link">Уже есть аккаунт? Войти</a>
+                <a href="signup.html" class="signup-link">Нет аккаунта? Зарегистрироваться</a>
             </div>
-            <footer class="signup-footer">
+            <footer class="login-footer">
                 <a href="#">Политика конфиденциальности</a>
                 <a href="#">Условия использования</a>
             </footer>
         </main>
     </div>
-    <script type="module" src="/scripts/pages/signup.js"></script>
-
 </body>
 </html>
