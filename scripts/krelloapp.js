@@ -27,6 +27,16 @@ const boardData = {
   },
 };
 
+function getLocalStorageKey() {
+  // отдельный ключ для каждого пользователя
+  if (currentUserId) {
+    return `krello_board_data:${currentUserId}`;
+  }
+  // на всякий случай дефолтный, если вдруг userId ещё нет
+  return "krello_board_data";
+}
+
+
 function userKrelloDoc() {
   if (!currentUserId) return null;
   return doc(db, "users", currentUserId, "krello", "boards");
@@ -83,8 +93,10 @@ function normalizeBoardEntry(entry) {
 }
 
 function loadBoardDataFromLocal() {
+  if (!currentUserId) return; // на всякий, но initApp уже ждёт initAuth
+
   try {
-    const raw = localStorage.getItem("krello_board_data");
+    const raw = localStorage.getItem(getLocalStorageKey());
     if (!raw) return;
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object") return;
@@ -103,6 +115,7 @@ function loadBoardDataFromLocal() {
     console.warn("Failed to parse local board data:", err);
   }
 }
+
 
 async function loadBoardDataFromRemote() {
   if (!currentUserId) return;
@@ -143,7 +156,9 @@ async function loadBoardDataFromRemote() {
 function saveBoardData(options = {}) {
   const { skipRemote = false } = options;
   try {
-    localStorage.setItem("krello_board_data", JSON.stringify(boardData));
+    if (currentUserId) {
+      localStorage.setItem(getLocalStorageKey(), JSON.stringify(boardData));
+    }
   } catch (err) {
     console.warn("Failed to save board data to localStorage:", err);
   }
@@ -151,6 +166,8 @@ function saveBoardData(options = {}) {
     scheduleRemoteSave();
   }
 }
+
+
 
 function extractBoardFromRoot(root) {
   const columns = [];
