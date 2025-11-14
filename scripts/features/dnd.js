@@ -1,5 +1,5 @@
 // /scripts/features/dnd.js
-// Универсальные хелперы для Drag & Drop колонок/карточек
+// Универсальные хелперы для Drag & Drop карточек и колонок
 
 import { qsa } from "../core/dom.js";
 
@@ -12,11 +12,10 @@ export function makeCardDraggable(cardEl, ctx) {
   cardEl.setAttribute("draggable", "true");
 
   cardEl.addEventListener("dragstart", (e) => {
-    e.dataTransfer.setData("text/cardId", ctx.cardId);
-    e.dataTransfer.setData("text/fromCol", ctx.colId);
-    e.dataTransfer.setData("text/fromDesk", ctx.deskId);
     cardEl.classList.add("dragging");
     e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/cardId", ctx.cardId);
+    e.dataTransfer.setData("text/fromCol", ctx.colId);
   });
 
   cardEl.addEventListener("dragend", () => {
@@ -25,45 +24,116 @@ export function makeCardDraggable(cardEl, ctx) {
 }
 
 /**
- * Подключает DnD-приёмник для контейнера карточек в колонке
- * @param {HTMLElement} cardsWrap - контейнер карточек (.column-cards)
- * @param {{deskId:string, colId:string, onMove:(fromDeskId:string, fromColId:string, cardId:string, toDeskId:string, toColId:string, insertIndex:number|null)=>void}} ctx
+ * Зона-дроп для КАРТОЧЕК внутри колонки
+ * @param {HTMLElement} container - .column-cards
+ * @param {{deskId:string, colId:string, onMove?:Function}} param1
  */
-export function attachColumnDropzone(cardsWrap, ctx) {
-  // подсветку/позиционирование делаем через вычисление ближайшего элемента
-  cardsWrap.addEventListener("dragover", (e) => {
+export function attachColumnDropzone(container, { deskId, colId, onMove } = {}) {
+  container.addEventListener("dragover", (e) => {
+    const draggingCard = document.querySelector(".card.dragging");
+    if (!draggingCard) return;
+
     e.preventDefault();
-    const afterEl = getDragAfterElement(cardsWrap, e.clientY);
-    const dragging = document.querySelector(".card.dragging");
-    if (!dragging) return;
-    if (!afterEl) cardsWrap.appendChild(dragging);
-    else cardsWrap.insertBefore(dragging, afterEl);
+    e.dataTransfer.dropEffect = "move";
+
+    const afterEl = getCardDragAfterElement(container, e.clientY);
+    if (!afterEl) {
+      container.appendChild(draggingCard);
+    } else {
+      container.insertBefore(draggingCard, afterEl);
+    }
   });
 
-  cardsWrap.addEventListener("drop", (e) => {
+  container.addEventListener("drop", (e) => {
+    const draggingCard = document.querySelector(".card.dragging");
+    if (!draggingCard) return;
     e.preventDefault();
-    const cardId = e.dataTransfer.getData("text/cardId");
-    const fromColId = e.dataTransfer.getData("text/fromCol");
-    const fromDeskId = e.dataTransfer.getData("text/fromDesk");
-    if (!cardId) return;
+    draggingCard.classList.remove("dragging");
 
-    const siblings = qsa(".card", cardsWrap);
-    const afterEl = getDragAfterElement(cardsWrap, e.clientY);
-    let idx = siblings.length;
-    if (afterEl) idx = siblings.indexOf(afterEl);
-
-    ctx.onMove(fromDeskId, fromColId, cardId, ctx.deskId, ctx.colId, Number.isFinite(idx) ? idx : null);
+    if (typeof onMove === "function") {
+      onMove({ deskId, colId });
+    }
   });
 }
 
-/** Возвращает элемент-карточку, ПОСЛЕ которого следует вставлять перетаскиваемую */
-export function getDragAfterElement(container, mouseY) {
+/** Возвращает элемент-карточку, ПОСЛЕ которого вставляем перетаскиваемую */
+function getCardDragAfterElement(container, mouseY) {
   const siblings = qsa(".card:not(.dragging)", container);
   let closest = { offset: Number.NEGATIVE_INFINITY, el: null };
 
   for (const child of siblings) {
     const box = child.getBoundingClientRect();
     const offset = mouseY - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) {
+      closest = { offset, el: child };
+    }
+  }
+  return closest.el;
+}
+
+/**
+ * Включает перетаскивание КОЛОНОК внутри #boardColumns
+ * @param {HTMLElement} boardRoot - контейнер с колонками (#boardColumns)
+ * @param {{onReorder?: Function}} param1
+ */
+export function enableColumnReorder(boardRoot, { onReorder } = {}) {
+  if (!boardRoot) return;
+
+  // Делаем каждую колонку draggable (они пересоздаются при рендере)
+  qsa(".column", boardRoot).forEach((col) => {
+    col.setAttribute("draggable", "true");
+
+    col.addEventListener("dragstart", (e) => {
+      col.classList.add("dragging-column");
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/columnId", col.dataset.columnId || "");
+    });
+
+    col.addEventListener("dragend", () => {
+      col.classList.remove("dragging-column");
+      if (typeof onReorder === "function") {
+        onReorder();
+      }
+    });
+  });
+
+  // Контейнер слушаем только один раз
+  if (boardRoot.dataset.columnsDndAttached === "1") return;
+  boardRoot.dataset.columnsDndAttached = "1";
+
+  boardRoot.addEventListener("dragover", (e) => {
+    const dragging = boardRoot.querySelector(".column.dragging-column");
+    if (!dragging) return;
+
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+
+    const afterEl = getColumnAfterElement(boardRoot, e.clientX);
+    if (!afterEl) {
+      boardRoot.appendChild(dragging);
+    } else {
+      boardRoot.insertBefore(dragging, afterEl);
+    }
+  });
+
+  boardRoot.addEventListener("drop", (e) => {
+    const dragging = boardRoot.querySelector(".column.dragging-column");
+    if (!dragging) return;
+    e.preventDefault();
+    dragging.classList.remove("dragging-column");
+    if (typeof onReorder === "function") {
+      onReorder();
+    }
+  });
+}
+
+function getColumnAfterElement(container, mouseX) {
+  const siblings = qsa(".column:not(.dragging-column)", container);
+  let closest = { offset: Number.NEGATIVE_INFINITY, el: null };
+
+  for (const child of siblings) {
+    const box = child.getBoundingClientRect();
+    const offset = mouseX - box.left - box.width / 2;
     if (offset < 0 && offset > closest.offset) {
       closest = { offset, el: child };
     }

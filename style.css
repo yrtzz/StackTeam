@@ -360,4 +360,8 @@ img { max-width: 100%; }
     font-size: 0.9rem;
     color: var(--primary-color-light);
 }
+.column.dragging-column {
+    opacity: 0.7;
+    transform: scale(0.98);
+}
 

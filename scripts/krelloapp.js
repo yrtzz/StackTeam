@@ -1,5 +1,10 @@
 // scripts/krelloapp.js
-import { makeCardDraggable, attachColumnDropzone } from "./features/dnd.js";
+import {
+  makeCardDraggable,
+  attachColumnDropzone,
+  enableColumnReorder,
+} from "./features/dnd.js";
+
 import { getKrelloState } from "./core/state.js";
 import { initModals } from "./features/modals.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
@@ -699,6 +704,20 @@ function attachEventListeners() {
       });
     });
   }
+
+    // DnD для КОЛОНОК (перестановка местами)
+    if (ui.currentSection !== "favorites") {
+      const boardRoot = document.getElementById("boardColumns");
+      if (boardRoot) {
+        enableColumnReorder(boardRoot, {
+          onReorder() {
+            // DOM-порядок колонок поменялся → сохраняем всю доску
+            saveCurrentBoard();
+          },
+        });
+      }
+    }
+  
 
   document.querySelectorAll(".card-star").forEach((star) => {
     star.onclick = (e) => {
