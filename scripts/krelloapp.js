@@ -2,7 +2,7 @@
 import { makeCardDraggable, attachColumnDropzone } from "./features/dnd.js";
 import { getKrelloState } from "./core/state.js";
 import { initModals } from "./features/modals.js";
-
+import { signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 import { auth, db } from "../firebase.js";
 import {
   onAuthStateChanged,
@@ -60,11 +60,16 @@ function scheduleRemoteSave() {
 function initAuth() {
   return new Promise((resolve) => {
     onAuthStateChanged(auth, (user) => {
-      currentUserId = user ? user.uid : null;
+      if (!user) {
+        location.replace("/signup.html");
+        return;
+      }
+      currentUserId = user.uid;
       resolve();
     });
   });
 }
+
 
 function normalizeBoardEntry(entry) {
   if (!entry) return null;
@@ -790,6 +795,19 @@ async function initApp() {
   window.addEventListener("beforeunload", () => {
     if (ui.currentSection !== "favorites") saveCurrentBoard();
   });
+}
+
+const logoutElement = document.querySelector('[data-action="logout"]');
+
+if (logoutElement) {
+    logoutElement.addEventListener("click", async () => {
+        try {
+            await signOut(auth);
+            location.href = "/signup.html?logout=1";
+        } catch (err) {
+            console.error("Ошибка при logout:", err);
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

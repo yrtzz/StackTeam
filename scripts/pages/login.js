@@ -1,23 +1,13 @@
-// scripts/pages/signup.js
 import { auth, provider as googleProvider } from "../../firebase.js";
 import {
   onAuthStateChanged,
   setPersistence,
   browserLocalPersistence,
   signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut as fbSignOut
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
 await setPersistence(auth, browserLocalPersistence);
-
-const qs = new URLSearchParams(location.search);
-if (qs.get("logout") === "1") {
-  try {
-    await fbSignOut(auth);
-  } catch (e) {}
-}
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -25,7 +15,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-const form = document.getElementById("form-signup-email");
+const form = document.getElementById("form-login-email");
 if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -35,24 +25,15 @@ if (form) {
     if (!email) return;
 
     try {
-      await createUserWithEmailAndPassword(auth, email, "default");
+      await signInWithEmailAndPassword(auth, email, "default");
       location.href = "/app.html";
     } catch (err) {
-      if (err.code === "auth/email-already-in-use") {
-        try {
-          await signInWithEmailAndPassword(auth, email, "default");
-          location.href = "/app.html";
-        } catch (err2) {
-          alert("Не удалось войти: " + (err2.message || ""));
-        }
-      } else {
-        alert("Ошибка регистрации: " + (err.message || ""));
-      }
+      alert("Не удалось войти: " + (err.message || ""));
     }
   });
 }
 
-const googleBtn = document.getElementById("btn-google-signup");
+const googleBtn = document.getElementById("btn-google-login");
 if (googleBtn) {
   googleBtn.addEventListener("click", async (e) => {
     e.preventDefault();
