@@ -5,6 +5,8 @@ import {
   enableColumnReorder,
 } from "./features/dnd.js";
 
+
+
 import { getKrelloState } from "./core/state.js";
 import { initModals } from "./features/modals.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
@@ -48,11 +50,11 @@ function userKrelloDoc() {
 }
 
 function getCurrentDeskKey() {
-  if (ui.currentSection === "boards") {
-    return `boards:${ui.currentBoard}`;
-  }
-  return ui.currentSection;
+  const boardKey = ui.currentBoard || "main";
+  return `boards:${boardKey}`;
 }
+
+
 
 function scheduleRemoteSave() {
   if (!currentUserId) return;
@@ -65,7 +67,7 @@ function scheduleRemoteSave() {
         boardData,
         favorites: getFavorites(),
       };
-      await setDoc(ref, payload, { merge: false });
+      await setDoc(ref, payload, { merge: true });
     } catch (err) {
       console.warn("Failed to save Krello state to Firestore:", err);
     }
@@ -321,24 +323,28 @@ function renderBoardStruct(struct) {
 }
 
 function saveCurrentBoard() {
-  if (ui.currentSection === "favorites") return;
-  const struct = serializeCurrentBoard();
-  if (!struct) return;
-  if (ui.currentSection === "inbox") {
-    boardData.inbox = struct;
-  } else if (ui.currentSection === "boards") {
-    boardData.boards[ui.currentBoard] = struct;
-  }
+  const boardRoot = document.getElementById("boardColumns");
+  if (!boardRoot) return;
+
+  const extracted = extractBoardFromRoot(boardRoot);
+  if (!extracted) return;
+
+  const boardKey = ui.currentBoard || "main";
+  boardData.boards[boardKey] = extracted;
+
   saveBoardData();
 }
 
+
+
+
+
 function loadBoard(section, board = "main") {
-  if (section === "inbox") {
-    renderBoardStruct(boardData.inbox);
-  } else if (section === "boards") {
-    renderBoardStruct(boardData.boards[board]);
-  }
+  const key = board || ui.currentBoard || "main";
+  renderBoardStruct(boardData.boards[key]);
 }
+
+
 
 function getFavorites() {
   try {
@@ -508,39 +514,49 @@ function switchSection(section) {
   if (ui.currentSection !== "favorites") {
     saveCurrentBoard();
   }
+
   ui.currentSection = section;
+
   const titles = {
     inbox: "Inbox — Входящие задачи 📥",
     boards: "Доски — Проекты и задачи 📊",
     favorites: "Избранное ⭐",
   };
   document.getElementById("boardTitle").textContent = titles[section];
+
   document.querySelectorAll(".sidebar-item").forEach((item) => {
     item.classList.toggle("active", item.dataset.section === section);
   });
+
   const tabs = document.querySelector(".board-tabs");
-  if (section === "boards") {
-    tabs.style.display = "flex";
-    loadBoard("boards", ui.currentBoard);
-  } else if (section === "favorites") {
+  const currentBoard = ui.currentBoard || "main";
+
+  if (section === "favorites") {
     tabs.style.display = "none";
     renderFavorites();
   } else {
-    tabs.style.display = "none";
-    loadBoard("inbox");
+    tabs.style.display = "flex";
+    loadBoard(section, currentBoard);
   }
 }
 
+
 function switchBoardTab(board) {
-  if (ui.currentSection === "boards") {
+  if (ui.currentSection !== "favorites") {
     saveCurrentBoard();
   }
+
   ui.currentBoard = board;
+
   document.querySelectorAll(".board-tab").forEach((tab) => {
     tab.classList.toggle("active", tab.dataset.board === board);
   });
-  loadBoard("boards", board);
+
+  const section = ui.currentSection === "favorites" ? "boards" : ui.currentSection;
+  loadBoard(section, board);
 }
+
+
 
 function renderFavorites() {
   const favorites = getFavorites();
@@ -560,12 +576,13 @@ function renderFavorites() {
     const [deskKey, cardId] = key.split(":");
     if (!deskKey || !cardId) return;
     let struct = null;
-    if (deskKey === "inbox") {
-      struct = boardData.inbox;
-    } else if (deskKey.startsWith("boards:")) {
+    if (deskKey.startsWith("boards:")) {
       const boardName = deskKey.split(":")[1];
       struct = boardData.boards[boardName];
+    } else if (deskKey === "inbox") {
+      struct = boardData.boards.main || null;
     }
+    
     if (!struct || !Array.isArray(struct.cards)) return;
     const card = struct.cards.find((c) => c.id === cardId);
     if (!card) return;
@@ -672,17 +689,120 @@ function addNewCard(column) {
 }
 
 function attachEventListeners() {
+  // --- чекбоксы ---
   document.querySelectorAll(".card-checkbox").forEach((cb) => {
     const card = cb.closest(".card");
     if (card) card.classList.add("has-checkbox");
+
     cb.onchange = null;
     cb.addEventListener("change", (e) => {
       const cardEl = e.target.closest(".card");
+      if (!cardEl) return;
+
       if (e.target.checked) cardEl.classList.add("completed");
       else cardEl.classList.remove("completed");
+
       saveCurrentBoard();
     });
   });
+
+  // --- DnD карточек и колонок (только если не избранное) ---
+  if (ui.currentSection !== "favorites") {
+    const deskId = getCurrentDeskKey();
+    const boardRoot = document.getElementById("boardColumns");
+
+    // КАРТОЧКИ: dnd + dropzone
+    document.querySelectorAll("#boardColumns .column").forEach((column) => {
+      const colId = column.dataset.columnId;
+      const wrap = column.querySelector(".column-cards");
+      if (!wrap) return;
+
+      // принимаем карточки
+      attachColumnDropzone(wrap, {
+        deskId,
+        colId,
+        onMove() {
+          saveCurrentBoard();
+        },
+      });
+
+      // делаем карточки draggable
+      wrap.querySelectorAll(".card").forEach((card) => {
+        const cardId = card.dataset.cardId;
+        if (!cardId) return;
+        makeCardDraggable(card, { deskId, colId, cardId });
+      });
+    });
+
+    // КОЛОНКИ: перестановка
+    if (boardRoot) {
+      enableColumnReorder(boardRoot, {
+        onReorder() {
+          saveCurrentBoard();
+        },
+      });
+    }
+  }
+
+  // --- звёздочки (избранное) ---
+  document.querySelectorAll(".card-star").forEach((star) => {
+    star.onclick = (e) => {
+      e.stopPropagation();
+      const card = e.target.closest(".card");
+      if (!card) return;
+      const cardId = card.dataset.cardId;
+      const deskKey = card.dataset.deskKey || null;
+      toggleFavorite(cardId, deskKey);
+    };
+  });
+
+  // --- меню колонок ---
+  document.querySelectorAll(".column-menu-trigger").forEach((trigger) => {
+    trigger.onclick = (e) => {
+      e.stopPropagation();
+      const col = trigger.closest(".column");
+      if (!col) return;
+      openColumnMenu(trigger, col);
+    };
+  });
+
+  // --- кнопка "Добавить карточку" ---
+  document.querySelectorAll(".add-card-btn").forEach((btn) => {
+    btn.onclick = () => {
+      const col = btn.closest(".column");
+      if (!col) return;
+      addNewCard(col);
+    };
+  });
+
+  // --- клик по карточке (редактирование текста) ---
+  document.querySelectorAll(".card").forEach((card) => {
+    card.onclick = (e) => {
+      if (
+        e.target.classList.contains("card-checkbox") ||
+        e.target.classList.contains("card-star")
+      ) {
+        return;
+      }
+
+      const textEl = card.querySelector("p");
+      const text = textEl ? textEl.textContent : "";
+
+      if (text.includes("New to Krello") || text.includes("Start here")) {
+        if (confirm("Открыть руководство?")) {
+          window.open("guide.html", "_blank");
+        }
+        return;
+      }
+
+      const edited = prompt("Edit card:", text);
+      if (edited && edited.trim() && edited !== text) {
+        textEl.textContent = edited.trim();
+        saveCurrentBoard();
+      }
+    };
+  });
+  
 
   if (ui.currentSection !== "favorites") {
     const deskId = getCurrentDeskKey();
@@ -765,30 +885,41 @@ function attachEventListeners() {
 }
 
 async function initApp() {
+  // 1. ждём авторизацию
   await initAuth();
+
+  // 2. пробуем поднять состояние с локали
   loadBoardDataFromLocal();
+
+  // 3. поверх него подтягиваем из Firestore (если есть)
   await loadBoardDataFromRemote();
 
-  if (!boardData.inbox) {
-    const initial = extractBoardFromRoot(document.getElementById("boardColumns"));
-    boardData.inbox = initial;
+  const boardRoot = document.getElementById("boardColumns");
+
+  // 4. если ни разу ещё не сохранялись — берём стартовую разметку из app.html
+  if (!boardData.boards.main) {
+    const initial = extractBoardFromRoot(boardRoot);
+    boardData.boards.main = initial;
     saveBoardData();
-  } else {
-    if (ui.currentSection === "inbox") {
-      renderBoardStruct(boardData.inbox);
-    }
   }
 
+  // 5. рендерим текущую доску (по умолчанию "main")
+  const initialBoardKey = ui.currentBoard || "main";
+  renderBoardStruct(boardData.boards[initialBoardKey]);
+
+  // 6. навешиваем обработчики на карточки/колонки
   attachEventListeners();
   updateFavoriteStars();
   initModals();
 
+  // --- вкладки досок (Основная / Личное / Работа) ---
   document.querySelectorAll(".board-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       switchBoardTab(tab.dataset.board);
     });
   });
 
+  // --- боковое меню (Inbox / Доски / Избранное) ---
   document.querySelectorAll(".sidebar-item").forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
@@ -796,17 +927,25 @@ async function initApp() {
     });
   });
 
+  // --- поиск ---
   const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("input", (e) => {
-    filterCards(e.target.value);
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      filterCards(e.target.value);
+    });
+  }
 
-  document.getElementById("newColumnBtn").addEventListener("click", () => {
-    createNewColumn(searchInput.value.trim());
-    searchInput.value = "";
-    filterCards("");
-  });
+  // --- кнопка "Новая колонна" ---
+  const newColumnBtn = document.getElementById("newColumnBtn");
+  if (newColumnBtn && searchInput) {
+    newColumnBtn.addEventListener("click", () => {
+      createNewColumn(searchInput.value.trim());
+      searchInput.value = "";
+      filterCards("");
+    });
+  }
 
+  // --- закрытие меню колонок по клику вне ---
   document.addEventListener("click", (e) => {
     if (
       !e.target.closest(".column-menu") &&
@@ -816,22 +955,33 @@ async function initApp() {
     }
   });
 
+  // --- горячие клавиши ---
   document.addEventListener("keydown", (e) => {
     if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
     if (e.key === "Escape") {
       closeColumnMenu();
     }
+
     if (e.key === "/" || (e.key === "f" && !e.ctrlKey)) {
       e.preventDefault();
-      const searchInput = document.getElementById("searchInput");
-      if (searchInput) searchInput.focus();
+      const si = document.getElementById("searchInput");
+      if (si) si.focus();
     }
   });
 
+  // --- автосейв перед закрытием / перезагрузкой ---
   window.addEventListener("beforeunload", () => {
-    if (ui.currentSection !== "favorites") saveCurrentBoard();
+    if (ui.currentSection !== "favorites") {
+      try {
+        saveCurrentBoard();
+      } catch (e) {
+        // пофиг, уходим
+      }
+    }
   });
 }
+
 
 const logoutElement = document.querySelector('[data-action="logout"]');
 
